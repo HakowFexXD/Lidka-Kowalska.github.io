@@ -523,24 +523,24 @@ window.addEventListener("resize", () => {
     }
 
     // GALERIA
-const images = {
+const works = {
   "Grafika": [
-    { file: "images/dzuma.png", name: "Dżuma" },
-    { file: "images/zaproszenie.png", name: "Zaproszenie (test)" },
-    { file: "images/style.png", name: "Style" }
+    { file: "works/dzuma.png", name: "Dżuma" },
+    { file: "works/zaproszenie.png", name: "Zaproszenie (test)" },
+    { file: "works/style.png", name: "Style" }
   ],
   "Rysunek": [
-    { file: "images/wilk.png", name: "Wilk" },
-    { file: "images/wilkz.png", name: "Wilk z kryształami" },
-    { file: "images/gory.png", name: "Góry" },
-    { file: "images/chiny.png", name: "Chiny" },
-    { file: "images/slomce.png", name: "Kula słońca" },
-    { file: "images/Nimfa.png", name: "Nimfa" }
+    { file: "works/wilk.png", name: "Wilk" },
+    { file: "works/wilkz.png", name: "Wilk z kryształami" },
+    { file: "works/gory.png", name: "Góry" },
+    { file: "works/chiny.png", name: "Chiny" },
+    { file: "works/slomce.png", name: "Kula słońca" },
+    { file: "works/Nimfa.png", name: "Nimfa" }
   ],
   "Animacje 2D": [
-    { file: "images/animacja1.gif", name: "Animacja retro" },
-    { file: "images/animacja2.mp4", name: "Krótki film" },
-    { file: "images/animacja3.gif", name: "Animacja retro" }
+    { file: "works/animacja1.gif", name: "Animacja retro" },
+    { file: "works/animacja2.mp4", name: "Krótki film" },
+    { file: "works/animacja3.gif", name: "Animacja retro" }
   ]
 };
     const gallery = document.getElementById("gallery");
@@ -555,7 +555,7 @@ const images = {
 
 function showGallery(name) {
   gallery.innerHTML = "";
-  images[name].forEach(item => {   // wcześniej: file
+  works[name].forEach(item => {   // wcześniej: file
     const div = document.createElement("div");
     div.classList.add("gallery-item");
 
@@ -611,15 +611,15 @@ function openLightbox(item) {
 // wszystkie projekty bez gif/mp4
 
 const allProjects = [
-  { file: "images/random.png", name: "Random" },
-  { file: "images/grafika2.jpg", name: "Drugi projekt" },
-  { file: "images/grafika3.jpg", name: "3 projekt" },
-  { file: "images/rysunek1.jpg", name: "Portret A" },
-  { file: "images/rysunek2.jpg", name: "Krajobraz B" },
-  { file: "images/rysunek3.jpg", name: "Krajobraz C" },
-  { file: "images/rysunek3.jpg", name: "Krajobraz C" },
-  { file: "images/rysunek3.jpg", name: "Krajobraz C" },
-  { file: "images/rysunek3.jpg", name: "Krajobraz C" }
+  { file: "works/random.png", name: "Random" },
+  { file: "works/grafika2.jpg", name: "Drugi projekt" },
+  { file: "works/grafika3.jpg", name: "3 projekt" },
+  { file: "works/rysunek1.jpg", name: "Portret A" },
+  { file: "works/rysunek2.jpg", name: "Krajobraz B" },
+  { file: "works/rysunek3.jpg", name: "Krajobraz C" },
+  { file: "works/rysunek3.jpg", name: "Krajobraz C" },
+  { file: "works/rysunek3.jpg", name: "Krajobraz C" },
+  { file: "works/rysunek3.jpg", name: "Krajobraz C" }
 ];
 
 const carousel = document.querySelector(".carousel");
@@ -704,4 +704,3 @@ galleryItems.forEach(item => {
 </script>
 </body>
 </html>
-
