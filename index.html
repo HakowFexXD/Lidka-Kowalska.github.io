@@ -50,18 +50,81 @@ body {
   100% { border-color: #fff; }
 }
 
-/* === CYBERPUNKOWA SIATKA 3D === */
-#background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  overflow: hidden;
-  perspective: 600px;
-  background: radial-gradient(circle at center, #001100 0%, #000 100%);
+<script>
+const canvas = document.createElement('canvas');
+document.getElementById('background').appendChild(canvas);
+const ctx = canvas.getContext('2d');
+
+let width = canvas.width = window.innerWidth;
+let height = canvas.height = window.innerHeight;
+
+const gridSize = 30; // odległość między punktami
+const speed = 0.02;  // szybkość animacji
+
+// generujemy punkty siatki
+let points = [];
+for (let y = -gridSize; y <= height + gridSize; y += gridSize) {
+  for (let x = -gridSize; x <= width + gridSize; x += gridSize) {
+    points.push({ x, y, z: Math.random() * 500 });
+  }
 }
+
+function project(point) {
+  // prosta perspektywa 3D
+  const fov = 500;
+  const scale = fov / (fov + point.z);
+  return {
+    x: (point.x - width / 2) * scale + width / 2,
+    y: (point.y - height / 2) * scale + height / 2,
+    scale
+  };
+}
+
+function draw() {
+  ctx.fillStyle = 'black';
+  ctx.fillRect(0, 0, width, height);
+
+  ctx.strokeStyle = '#00ff00';
+  ctx.lineWidth = 1;
+
+  for (let i = 0; i < points.length; i++) {
+    points[i].z -= 2; // przesuwamy punkt do przodu
+    if (points[i].z < 1) points[i].z = 500; // reset gdy z < 1
+
+    const p = project(points[i]);
+
+    // rysujemy linie do punktów po prawej i w dół
+    const right = points.find(pt => pt.x === points[i].x + gridSize && pt.y === points[i].y);
+    const down = points.find(pt => pt.x === points[i].x && pt.y === points[i].y + gridSize);
+
+    if (right) {
+      const pr = project(right);
+      ctx.beginPath();
+      ctx.moveTo(p.x, p.y);
+      ctx.lineTo(pr.x, pr.y);
+      ctx.stroke();
+    }
+
+    if (down) {
+      const pd = project(down);
+      ctx.beginPath();
+      ctx.moveTo(p.x, p.y);
+      ctx.lineTo(pd.x, pd.y);
+      ctx.stroke();
+    }
+  }
+
+  requestAnimationFrame(draw);
+}
+
+draw();
+
+// reagowanie na zmianę rozmiaru okna
+window.addEventListener('resize', () => {
+  width = canvas.width = window.innerWidth;
+  height = canvas.height = window.innerHeight;
+});
+</script>
 
 .grid {
   position: absolute;
@@ -346,3 +409,4 @@ bg.appendChild(grid);
 
 </body>
 </html>
+
