@@ -443,6 +443,9 @@
 <div id="triangle-bottom"></div>
 
   <div id="background"></div>
+<div id="background">
+  <div class="grid"></div>
+</div>
 
   <div class="container">
     <img src="images/me.png" alt="Ja" class="profile">
@@ -498,6 +501,16 @@
     </footer>
 
   <script>
+// delikatne kołysanie siatki dla efektu 3D
+const grid = document.querySelector('.grid');
+let t = 0;
+function animateGrid() {
+  t += 0.002;
+  const tilt = Math.sin(t) * 5 + 70;
+  grid.style.transform = `translateX(-50%) rotateX(${tilt}deg)`;
+  requestAnimationFrame(animateGrid);
+}
+animateGrid();
 
 function generateOutlineTriangles(containerId) {
   const container = document.getElementById(containerId);
@@ -717,6 +730,7 @@ galleryItems.forEach(item => {
 </script>
 </body>
 </html>
+
 
 
 
