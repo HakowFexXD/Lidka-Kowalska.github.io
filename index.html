@@ -188,31 +188,44 @@
       font-family: 'Press Start 2P', monospace;
       overflow-x: hidden;
     }
+/* === ANIMOWANA SIATKA 3D === */
+#background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, #001000 0%, #000 80%);
+  overflow: hidden;
+  z-index: 0;
+  perspective: 800px;
+}
 
-    /* ANIMOWANE TŁO */
-    #background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      overflow: hidden;
-    }
+.grid {
+  position: absolute;
+  bottom: -100px;
+  left: 50%;
+  width: 200%;
+  height: 200%;
+  transform: translateX(-50%) rotateX(70deg);
+  background-image:
+    linear-gradient(#00ff00 1px, transparent 1px),
+    linear-gradient(90deg, #00ff00 1px, transparent 1px);
+  background-size: 80px 80px;
+  animation: moveGrid 10s linear infinite;
+  opacity: 0.25;
+  filter: drop-shadow(0 0 4px #00ff00);
+}
 
-    .square {
-      position: absolute;
-      background: #00ff00;
-      opacity: 0.3;
-      width: 6px;
-      height: 6px;
-      animation: float 10s infinite alternate ease-in-out;
-    }
+@keyframes moveGrid {
+  from {
+    background-position: 0 0, 0 0;
+  }
+  to {
+    background-position: 0 80px, 80px 0;
+  }
+}
 
-    @keyframes float {
-      from { transform: translate(0, 0); }
-      to { transform: translate(50px, -50px); }
-    }
 
     /* GŁÓWNY UKŁAD */
     .container {
@@ -509,10 +522,6 @@ window.addEventListener("resize", () => {
   generateOutlineTriangles("triangle-bottom");
 });
 
-    // ANIMOWANE KWADRATY W TLE
-
-    const bg = document.getElementById("background");
-    for (let i = 0; i < 40; i++) {
       const sq = document.createElement("div");
       sq.classList.add("square");
       sq.style.top = Math.random() * 100 + "%";
@@ -708,6 +717,7 @@ galleryItems.forEach(item => {
 </script>
 </body>
 </html>
+
 
 
 
