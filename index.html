@@ -9,6 +9,30 @@
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
   <style>
+    
+.mail-button-wrapper {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.mail-button {
+  display: inline-block;
+  background-color: #00ff00;
+  color: black;
+  padding: 16px 30px;
+  font-family: 'Press Start 2P', monospace;
+  border: 3px solid #00ff00;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: 0.3s;
+  box-shadow: 0 0 10px #00ff00;
+}
+
+.mail-button:hover {
+  background-color: white;
+  color: black;
+  box-shadow: 0 0 20px #00ff00;
+}
 
 .all-projects-section {
   max-width: 1000px;
@@ -482,6 +506,9 @@
 
     <footer>
       <a href="https://hakowfex.carrd.co" target="_blank">Moje linki</a>
+      <div class="mail-button-wrapper">
+  <a href="mail.html" class="mail-button">WYŚLIJ MAIL</a>
+</div>
     </footer>
 
   <script>
@@ -708,4 +735,5 @@ galleryItems.forEach(item => {
 </script>
 </body>
 </html>
+
 
