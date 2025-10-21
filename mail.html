@@ -11,6 +11,7 @@
       font-family: 'Press Start 2P', monospace;
       text-align: center;
       padding: 50px;
+      overflow-x: hidden;
     }
 
     h1 {
@@ -26,7 +27,7 @@
       max-width: 600px;
       margin: 0 auto;
       box-shadow: 0 0 20px #00ff00;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.85);
     }
 
     input, textarea {
@@ -67,31 +68,112 @@
       box-shadow: 0 0 20px #00ff00;
     }
 
-    .back-link {
-      display: block;
-      margin-top: 30px;
-      color: #00ff00;
-      text-decoration: none;
-      font-size: 12px;
+    .success-box {
+      display: none;
+      border: 3px solid #00ff00;
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 600px;
+      margin: 0 auto;
+      box-shadow: 0 0 20px #00ff00;
+      background: rgba(0, 0, 0, 0.85);
+      animation: fadeIn 0.6s ease forwards;
     }
 
-    .back-link:hover {
-      color: white;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .success-text {
+      font-size: 16px;
+      margin-bottom: 25px;
+    }
+
+    .back-button {
+      background: #00ff00;
+      color: black;
+      border: 2px solid #00ff00;
+      border-radius: 12px;
+      padding: 12px 20px;
+      cursor: pointer;
+      transition: 0.3s;
+      text-decoration: none;
+      font-family: 'Press Start 2P', monospace;
+    }
+
+    .back-button:hover {
+      background: white;
+      box-shadow: 0 0 20px #00ff00;
+    }
+
+    /* Pixelowe tło z małymi zielonymi kwadratami */
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .square {
+      position: absolute;
+      background: #00ff00;
+      opacity: 0.3;
+      width: 4px;
+      height: 4px;
+      animation: float 10s infinite alternate ease-in-out;
+    }
+
+    @keyframes float {
+      from { transform: translate(0, 0); opacity: 0.3; }
+      to { transform: translate(60px, -60px); opacity: 0.8; }
     }
   </style>
 </head>
 <body>
+
+  <div class="background" id="background"></div>
+
   <h1>NAPISZ MAILA DO LIDKA KOWALSKA:</h1>
 
-  <div class="mail-box">
-    <form action="https://formspree.io/f/mvgwnlnw" method="POST">
+  <div class="mail-box" id="mailBox">
+    <form id="mailForm">
       <input type="email" name="email" placeholder="Twój e-mail" required>
       <textarea name="message" placeholder="Napisz wiadomość..." required></textarea>
       <button type="submit" class="send-button">WYŚLIJ</button>
     </form>
   </div>
 
-  <a href="index.html" class="back-link">⬅ POWRÓT DO STRONY GŁÓWNEJ</a>
-</body>
+  <div class="success-box" id="successBox">
+    <p class="success-text">MAIL WYSŁANY ✅</p>
+    <a href="index.html" class="back-button">WRÓĆ NA STRONĘ GŁÓWNĄ</a>
+  </div>
 
+  <script>
+    // Pixelowe tło
+    const bg = document.getElementById("background");
+    for (let i = 0; i < 50; i++) {
+      const sq = document.createElement("div");
+      sq.classList.add("square");
+      sq.style.top = Math.random() * 100 + "%";
+      sq.style.left = Math.random() * 100 + "%";
+      sq.style.animationDuration = 6 + Math.random() * 8 + "s";
+      bg.appendChild(sq);
+    }
+
+    // Symulacja wysłania maila
+    const form = document.getElementById('mailForm');
+    const mailBox = document.getElementById('mailBox');
+    const successBox = document.getElementById('successBox');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault(); // blokuje przeładowanie
+      mailBox.style.display = 'none';
+      successBox.style.display = 'block';
+    });
+  </script>
+</body>
 </html>
