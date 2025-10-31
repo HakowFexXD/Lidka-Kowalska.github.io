@@ -438,7 +438,7 @@
   <section class="about">
     <h1>O MNIE</h1>
     <p>
-      Siema! Nazywam się Lidka Kowalska, aka "Hakow Fex" lub "Xofer". Jestem artystką i graficzką. Tworzę animacje 2D, grafiki oraz rysunki. Potrafię również projektować przedmioty użytkowe, takie jak przypinki, naklejki czy breloki. Uczę się w Technikum Grafiki i Poligrafii Cyfrowej w Warszawie, a w weekendy mieszkam w Grudziądzu. Znam się na programach takich jak Adobe Illustrator, Toonsquid, Procreate oraz Adobe Animate.
+      Siema! Nazywam się Lidka Kowalska, aka "Hakow Fex" lub "Xofer". Jestem artystką i graficzką. Tworzę animacje 2D, grafiki oraz rysunki. Potrafię również projektować przedmioty użytkowe, takie jak przypinki, nak  lejki czy breloki. Uczę się w Technikum Grafiki i Poligrafii Cyfrowej w Warszawie, a w weekendy mieszkam w Grudziądzu. Znam się na programach takich jak Adobe Illustrator, Flipaclip, Adobe Indesign, Adobe Photoshop Toonsquid, Procreate oraz Adobe Animate.
 
     </p>
   </section>
@@ -546,7 +546,10 @@ const works = {
     { file: "works/style.png", name: "Style" },
     { file: "works/deer.png", name: "Czaszka jelenia" },
     { file: "works/neon.png", name: "Cyberpunk wilk" },
-    { file: "works/dr.png", name: "Logo smoka" }
+    { file: "works/dr.png", name: "Logo smoka" },
+    { file: "works/logo.png", name: "Logo zespołu" },
+    { file: "works/steampunk.png", name: "Stempunk reking" },
+    { file: "works/steampunkowl.png", name: "Steampunk sowa" }
   ],
   "Rysunek": [
     { file: "works/wilk.png", name: "Wilk" },
@@ -555,12 +558,13 @@ const works = {
     { file: "works/chiny.png", name: "Chiny" },
     { file: "works/slomce.png", name: "Kula słońca" },
     { file: "works/Nimfa.png", name: "Nimfa" },
-   { file: "works/obraz_2025-10-20_184556781.png", name: "Kruk" }
+   { file: "works/obraz_2025-10-20_184556781.png", name: "Kruk" },
+    { file: "works/lion.png", name: "Lew z fantastyki" }
   ],
   "Animacje 2D": [
     { file: "works/wolffff.gif", name: "Wilk" },
-    { file: "works/testdance.gif", name: "Krótki film" },
-    { file: "works/animacja3.gif", name: "-" }
+    { file: "works/testdance.gif", name: "Taniec (test)" },
+    { file: "works/kula.gif", name: "Kula" }
   ]
 };
     const gallery = document.getElementById("gallery");
@@ -631,13 +635,13 @@ function openLightbox(item) {
 // wszystkie projekty bez gif/mp4
 
 const allProjects = [
-  { file: "works/Soter.gif", name: "Soter (moja postać)" },
+  { file: "works/Soter(1).gif", name: "Soter (moja postać)" },
   { file: "postacie_z_gier1", name: "Postacie z gry 'Cookie RUn: Kingdom'" },
   { file: "postacie_z_gier2", name: "Postacie z gier 'Undertale' i 'FNAF'" },
-  { file: "works/rysunek1.jpg", name: "-" },
-  { file: "works/rysunek2.jpg", name: "-" },
-  { file: "works/rysunek3.jpg", name: "-" },
-  { file: "works/rysunek3.jpg", name: "-" },
+  { file: "works/postac.png", name: "Test postaci z 'Fundamental Paper Education'" },
+  { file: "works/my_two_sides.png", name: "Rysunek mojej postaci 'Two Sides'" },
+  { file: "works/mem.mov", name: "Modna animacja z tik toka" },
+  { file: "works/japanrr", name: "Nieskończony projekt budynku japońskiego" },
   { file: "works/rysunek3.jpg", name: "-" },
   { file: "works/rysunek3.jpg", name: "-" }
 ];
@@ -820,6 +824,7 @@ document.getElementById("closeContact").addEventListener("click", () => {
 </script>
 </body>
 </html>
+
 
 
 
