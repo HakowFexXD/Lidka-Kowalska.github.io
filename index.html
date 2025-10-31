@@ -613,15 +613,16 @@ function openLightbox(item) {
   lightbox.style.display = "flex";
   imageName.textContent = item.name;
 
-  if (item.file.endsWith(".mp4")) {
-    lightboxImage.style.display = "none";
-    lightboxVideo.style.display = "block";
-    lightboxVideo.src = item.file;
-  } else {
-    lightboxVideo.style.display = "none";
-    lightboxImage.style.display = "block";
-    lightboxImage.src = item.file;
-  }
+  if (item.file.endsWith(".mp4") || item.file.endsWith(".mov")) {
+  lightboxImage.style.display = "none";
+  lightboxVideo.style.display = "block";
+  lightboxVideo.src = item.file;
+  lightboxVideo.play();
+} else {
+  lightboxVideo.style.display = "none";
+  lightboxImage.style.display = "block";
+  lightboxImage.src = item.file;
+}
 
   // <-- tutaj dodajesz wywołanie animacji pikseli
   pixelEffectOnClick(item, lightbox);
@@ -636,8 +637,8 @@ function openLightbox(item) {
 
 const allProjects = [
   { file: "works/Soter (1).gif", name: "Soter (moja postać)" },
-  { file: "postacie_z_gier1.png", name: "Postacie z gry 'Cookie Run: Kingdom'" },
-  { file: "postacie_z_gier2.png", name: "Postacie z gier 'Undertale' i 'FNAF'" },
+  { file: "works/postacie_z_gier1.png", name: "Postacie z gry 'Cookie Run: Kingdom'" },
+  { file: "works/postacie_z_gier2.png", name: "Postacie z gier 'Undertale' i 'FNAF'" },
   { file: "works/postac.gif", name: "Test postaci z 'Fundamental Paper Education'" },
   { file: "works/my_two_sides.png", name: "Rysunek mojej postaci 'Two Sides'" },
   { file: "works/mem.mov", name: "Modna animacja z tik toka" },
@@ -834,6 +835,7 @@ document.getElementById("closeContact").addEventListener("click", () => {
 </script>
 </body>
 </html>
+
 
 
 
