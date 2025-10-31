@@ -583,7 +583,7 @@ function showGallery(name) {
     const div = document.createElement("div");
     div.classList.add("gallery-item");
 
-    if (item.file.endsWith(".mp4")) {
+    if (item.file.endsWith(".mp4") || item.file.endsWith(".mov")) {
       const video = document.createElement("video");
       video.src = item.file;
       video.muted = true;
@@ -653,9 +653,19 @@ allProjects.forEach(item => {
   const div = document.createElement("div");
   div.classList.add("carousel-item");
 
+  if (item.file.endsWith(".mp4") || item.file.endsWith(".mov")) {
+  const video = document.createElement("video");
+  video.src = item.file;
+  video.muted = true;
+  video.loop = true;
+  video.autoplay = true;
+  video.playsInline = true;
+  div.appendChild(video);
+} else {
   const img = document.createElement("img");
   img.src = item.file;
   div.appendChild(img);
+}
 
   // overlay z nazwą projektu
   const title = document.createElement("div");
@@ -824,6 +834,7 @@ document.getElementById("closeContact").addEventListener("click", () => {
 </script>
 </body>
 </html>
+
 
 
 
