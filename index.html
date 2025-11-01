@@ -16,42 +16,42 @@
       justify-content: center;
       font-family: 'Press Start 2P', monospace;
       color: #00ff00;
-      overflow: hidden;
     }
 
     h1 {
-      font-size: 14px;
+      font-size: 24px; /* było 14px → teraz większy */
       color: #00ff00;
-      text-shadow: 0 0 10px #00ff00;
-      margin-bottom: 40px;
+      text-shadow: 0 0 15px #00ff00;
+      margin-bottom: 60px;
+      text-align: center;
     }
 
     .lang-buttons {
       display: flex;
-      gap: 40px;
+      gap: 60px;
     }
 
     .lang-btn {
       border: 3px solid #00ff00;
       color: #00ff00;
       background: #111;
-      padding: 15px 25px;
-      border-radius: 15px;
-      font-size: 10px;
+      padding: 25px 45px; /* większe przyciski */
+      border-radius: 20px;
+      font-size: 14px; /* było 10px → większa czcionka */
       text-decoration: none;
-      box-shadow: 0 0 15px #00ff00;
+      box-shadow: 0 0 20px #00ff00;
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .lang-btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 25px #00ff00;
+      transform: scale(1.15);
+      box-shadow: 0 0 35px #00ff00;
     }
 
     footer {
       position: absolute;
       bottom: 15px;
-      font-size: 8px;
+      font-size: 10px;
       opacity: 0.6;
     }
   </style>
@@ -61,7 +61,7 @@
   <h1>SELECT LANGUAGE</h1>
 
   <div class="lang-buttons">
-    <a href="main-pl.html" class="lang-btn">POLISH</a>
+    <a href="main-pl.html" class="lang-btn">POLSKI</a>
     <a href="main-en.html" class="lang-btn">ENGLISH</a>
   </div>
 
