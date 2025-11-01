@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Artysty</title>
+
+  <!-- Pixelowy font -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <style>
+.all-projects-section {
+  max-width: 1000px;
+  margin: 40px auto;
+}
+
+.carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.carousel {
+  display: flex;
+  overflow-x: hidden;
+  gap: 10px;
+  scroll-behavior: smooth;
+}
+
+.carousel-item {
+  flex: 0 0 auto;
+  width: 150px;
+  height: 150px;
+  border: 2px solid #00ff00;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: filter 0.3s ease;
+}
+
+.carousel-item:hover img {
+  filter: brightness(40%);
+}
+
+.carousel-btn {
+  background: #00ff00;
+  color: black;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 20px;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 0 10px #00ff00;
+  user-select: none;
+  transition: 0.2s;
+}
+
+.carousel-btn:hover {
+  background: white;
+  color: black;
+}
+
+#triangle-top,
+#triangle-bottom {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  height: 30px; /* wysokość paska */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#triangle-bottom {
+  bottom: 0;
+  transform: rotate(180deg); /* odwrócone trójkąty */
+}
+
+.triangle {
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  border-left: 2px solid #00ff00;
+  border-bottom: 2px solid #00ff00;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  animation: triangleColor 2s infinite alternate;
+}
+
+/* gradientowa animacja kolorów */
+@keyframes triangleColor {
+  0% { border-color: #00ff00; }
+  50% { border-color: #a0ffa0; }
+  100% { border-color: #fff; }
+}
+
+
+/* PIXELOWE EFEKTY NA PROJECTACH */
+.project-pixel {
+  position: absolute;
+  width: 3px;        /* małe retro piksele */
+  height: 3px;
+  background-color: #00ff00;
+  pointer-events: none;
+  opacity: 0.8;
+  animation: pixel-hover 0.5s forwards;
+}
+
+@keyframes pixel-hover {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(calc(-5px + 10px * var(--rand-x)), calc(-5px + 10px * var(--rand-y))) scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(calc(-10px + 20px * var(--rand-x)), calc(-10px + 20px * var(--rand-y))) scale(0.5);
+    opacity: 0;
+  }
+}
+
+/* --- ANIMACJE PIXELOWE PO BOKACH --- */
+.side-pixels {
+  position: fixed;
+  top: 0;
+  width: 60px; /* szerokość pasa z pikselami */
+  height: 100%;
+  z-index: 1;
+  pointer-events: none; /* nie blokuje kliknięć */
+  overflow: hidden;
+}
+
+#sidePixelsLeft {
+  left: 0;
+}
+
+#sidePixelsRight {
+  right: 0;
+}
+
+.pixel-line {
+  position: absolute;
+  background-color: #00ff00;
+  opacity: 0.6;
+  animation: fallDown linear infinite;
+  filter: drop-shadow(0 0 5px #00ff00);
+}
+
+/* Animacja spadających pikseli */
+@keyframes fallDown {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh);
+    opacity: 0.1;
+  }
+}
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      color: white;
+      font-family: 'Press Start 2P', monospace;
+      overflow-x: hidden;
+    }
+
+    /* ANIMOWANE TŁO */
+    #background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .square {
+      position: absolute;
+      background: #00ff00;
+      opacity: 0.3;
+      width: 6px;
+      height: 6px;
+      animation: float 10s infinite alternate ease-in-out;
+    }
+
+    @keyframes float {
+      from { transform: translate(0, 0); }
+      to { transform: translate(50px, -50px); }
+    }
+
+    /* GŁÓWNY UKŁAD */
+    .container {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .profile {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 4px solid #00ff00;
+      box-shadow: 0 0 25px #00ff00;
+      margin-bottom: 30px;
+    }
+
+    .about {
+      max-width: 850px;
+      margin: 0 auto 65px auto;
+    }
+
+    .about h1 {
+      color: #00ff00;
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .about p {
+      font-family: sans-serif;
+      font-size: 20px;
+      color: #ccc;
+      line-height: 1.6em;
+    }
+
+/* SEKCJE */
+.sections {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.section {
+  border: 3px solid #00ff00;
+  padding: 20px;
+  border-radius: 15px;
+  width: 180px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.section:hover {
+  box-shadow: 0 0 20px #00ff00;
+  animation: pixel-glow 0.15s steps(5, end) infinite;
+}
+
+/* RAMKA Z ZIELONYCH PIKSELI — TYLKO NA OKOŁO */
+.sections-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 35px;
+  max-width: 960px;
+  margin: 30px auto 0 auto;
+  gap: 25px;
+  overflow: hidden;
+}
+
+/* Statyczna pixelowa ramka wokół sekcji */
+.sections-wrapper::before,
+.sections-wrapper::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  inset: 0;
+}
+
+/* GÓRA + DÓŁ */
+.sections-wrapper::before {
+  background:
+    linear-gradient(90deg, #00ff00 50%, transparent 50%) top left / 8px 4px repeat-x,
+    linear-gradient(90deg, #00ff00 50%, transparent 50%) bottom left / 8px 4px repeat-x;
+  background-repeat: repeat-x;
+  background-position: top left, bottom left;
+  background-size: 8px 4px;
+  filter: drop-shadow(0 0 6px #00ff00);
+}
+
+/* LEWY + PRAWY BOK */
+.sections-wrapper::after {
+  background:
+    linear-gradient(0deg, #00ff00 50%, transparent 50%) top left / 4px 8px repeat-y,
+    linear-gradient(0deg, #00ff00 50%, transparent 50%) top right / 4px 8px repeat-y;
+  background-repeat: repeat-y;
+  background-position: top left, top right;
+  background-size: 4px 8px;
+  filter: drop-shadow(0 0 6px #00ff00);
+}
+
+    /* GALERIA */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(5, 170px); /* mniejsze kwadraty */
+      justify-content: center;
+      gap: 2px;
+      max-width: 1000px;
+      margin: 50px auto;
+    }
+
+    .gallery-item {
+      width: 150px; /* dopasowane do kolumn */
+      height: 150px;
+      max-width: 150px;
+      position: relative;
+      border: 2px solid #00ff00;
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #111;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.05);
+      animation: pixel-glow 0.2s steps(5, end) infinite;
+    }
+
+    .gallery-item img,
+    .gallery-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* przycina miniaturę */
+      object-position: center;
+    }
+
+    /* LIGHTBOX */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.85);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 90%;
+      text-align: center;
+    }
+
+    .close-btn {
+      background: #00ff00;
+      border: none;
+      color: black;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 16px;
+      padding: 16px 20px;
+      cursor: pointer;
+      border-radius: 16px;
+      box-shadow: 0 0 16px #00ff00;
+      margin-bottom: 16px;
+    }
+
+    .close-btn:hover {
+      background: white;
+    }
+
+    #lightboxImage,
+    #lightboxVideo {
+      max-width: 100%;
+      max-height: 80vh;
+      border: 4px solid #00ff00;
+      border-radius: 16px;
+      object-fit: contain; /* wyświetla w oryginalnych proporcjach */
+    }
+
+    #imageName {
+      color: #00ff00;
+      margin-top: 16px;
+      font-size: 18px;
+    }
+
+    footer {
+      margin-top: 40px;
+    }
+
+    footer a {
+      color: #00ff00;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 20px;
+    }
+
+    footer a:hover {
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<div id="triangle-top"></div>
+<div id="triangle-bottom"></div>
+
+  <div id="background"></div>
+
+  <div class="container">
+    <img src="images/me.png" alt="Ja" class="profile">
+
+<!-- NOWA SEKCJA: O MNIE Z RAMKĄ -->
+<div class="about-wrapper">
+  <section class="about">
+    <h1>ABOUT ME</h1>
+    <p>
+      Hey there! My name’s Lidka Kowalska, aka “Hakow Fex” or “Xofer”.  
+        I’m an artist and graphic designer — I create 2D animations, illustrations, and digital art.  
+        I also design small merch like pins, stickers, and keychains.  
+        I’m currently studying at the Technical School of Graphic and Digital Printing in Warsaw,  
+        and I live in Grudziądz on weekends.
+    </p>
+  </section>
+</div>
+<div class="sections-wrapper">
+  <div class="sections">
+    <div class="section" data-section="Graphics">Graphics</div>
+      <div class="section" data-section="Drawings">Drawings</div>
+      <div class="section" data-section="2D Animations">2D Animations</div>
+  </div>
+
+  <div id="gallery" class="gallery"></div>
+
+  <!-- Piksele animowane wokół ramki -->
+  <div class="pixels"></div>
+</div>
+
+    <div id="lightbox" class="lightbox">
+      <button id="closeLightbox" class="close-btn">CLOSE ✖</button>
+      <div class="lightbox-content">
+        <img id="lightboxImage" src="" alt="">
+        <video id="lightboxVideo" controls></video>
+        <p id="imageName"></p>
+      </div>
+    </div>
+
+<!-- KARUZELA WSZYSTKICH PROJEKTÓW -->
+<section class="all-projects-section">
+  <h2 style="color:#f; font-size:20px; font-family:'Press Start 2P', monospace; text-align:center; margin-bottom:15px;">
+    OTHER PROJECTS / GRAPHICS:
+  </h2>
+  <div class="carousel-wrapper">
+    <button class="carousel-btn left">&lt;</button>
+    <div class="carousel">
+      <!-- Tutaj JS wstawi wszystkie projekty -->
+    </div>
+    <button class="carousel-btn right">&gt;</button>
+  </div>
+</section>
+
+    <footer>
+      <!-- RAMKA Z PROGRAMAMI -->
+<div class="programs-frame">
+  <h2>PROGRAMS I USE:</h2>
+  <div class="programs-grid">
+    <div class="program">
+      <img src="programs/illustrator.png" alt="Adobe Illustrator">
+      <p>Adobe Illustrator</p>
+    </div>
+    <div class="program">
+      <img src="programs/flipaclip.png" alt="Flipaclip">
+      <p>Flipaclip</p>
+    </div>
+    <div class="program">
+      <img src="programs/indesign.png" alt="Adobe InDesign">
+      <p>Adobe Indesign</p>
+    </div>
+    <div class="program">
+      <img src="programs/photoshop.png" alt="Adobe Photoshop">
+      <p>Adobe Photoshop</p>
+    </div>
+    <div class="program">
+      <img src="programs/toonsquid.png" alt="Toonsquid">
+      <p>Toonsquid</p>
+    </div>
+    <div class="program">
+      <img src="programs/procreate.png" alt="Procreate">
+      <p>Procreate</p>
+    </div>
+    <div class="program">
+      <img src="programs/animate.png" alt="Adobe Animate">
+      <p>Adobe Animate</p>
+    </div>
+    <div class="program">
+      <img src="programs/firealpaca.png" alt="FireAlpaca">
+      <p>FireAlpaca</p>
+    </div>
+  </div>
+</div>
+      
+  <a href="https://hakowfex.carrd.co" target="_blank">Moje linki</a>
+  <br><br>
+
+  <!-- PRZYCISK KONTAKT -->
+  <button id="contactBtn" class="contact-button">KONTAKT</button>
+</footer>
+
+<!-- OKIENKO KONTAKTU -->
+<div id="contactPopup" class="contact-popup">
+  <div class="contact-content">
+    <h2>CONTACT ME:</h2>
+    <p>- NR TEL: 577 981 140</p>
+    <p>- MAIL: lidka.08k@gmail.com</p>
+    <p>- FACEBOOK: Hakow Fex albo Lidka Kowalska</p>
+    <button id="closeContact" class="close-contact">CLOSE</button>
+  </div>
+</div>
+
+    </footer>
+
+  <script>
+
+function generateOutlineTriangles(containerId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = "";
+  const numTriangles = Math.floor(window.innerWidth / 24); // szerokość + odstęp
+
+  for (let i = 0; i < numTriangles; i++) {
+    const tri = document.createElement("div");
+    tri.classList.add("triangle");
+    tri.style.animationDelay = (i * 0.1) + "s"; // efekt falowania
+    container.appendChild(tri);
+  }
+}
+
+// generujemy przy ładowaniu strony
+generateOutlineTriangles("triangle-top");
+generateOutlineTriangles("triangle-bottom");
+
+// odświeżamy przy zmianie rozmiaru okna
+window.addEventListener("resize", () => {
+  generateOutlineTriangles("triangle-top");
+  generateOutlineTriangles("triangle-bottom");
+});
+
+    // ANIMOWANE KWADRATY W TLE
+
+    const bg = document.getElementById("background");
+    for (let i = 0; i < 40; i++) {
+      const sq = document.createElement("div");
+      sq.classList.add("square");
+      sq.style.top = Math.random() * 100 + "%";
+      sq.style.left = Math.random() * 100 + "%";
+      sq.style.animationDuration = 5 + Math.random() * 10 + "s";
+      sq.style.width = sq.style.height = 2 + Math.random() * 6 + "px";
+      bg.appendChild(sq);
+    }
+
+    // GALERIA
+const works = {
+  "Graphics": [
+    { file: "works/dzuma.png", name: "The Plague" },
+    { file: "works/zaproszenie.png", name: "Invitation (test)" },
+    { file: "works/style.png", name: "Styles" },
+    { file: "works/deer.png", name: "Deer Skull" },
+    { file: "works/neon.png", name: "Cyberpunk Wolf" },
+    { file: "works/dr.png", name: "Dragon Logo" },
+    { file: "works/logo.png", name: "Band Logo" },
+    { file: "works/steampunk.png", name: "Steampunk Shark" },
+    { file: "works/steampunkowl.png", name: "Steampunk Owl" }
+  ],
+  "Drawings": [
+    { file: "works/wilk.png", name: "Wolf" },
+    { file: "works/wilkz.png", name: "Crystal Wolf" },
+    { file: "works/gory.png", name: "Mountains" },
+    { file: "works/chiny.png", name: "China" },
+    { file: "works/slomce.png", name: "Sun Orb" },
+    { file: "works/Nimfa.png", name: "Nymph" },
+    { file: "works/obraz_2025-10-20_184556781.png", name: "Raven" },
+    { file: "works/lion.png", name: "Fantasy Lion" }
+  ],
+  "2D Animations": [
+    { file: "works/wolffff.gif", name: "Wolf" },
+    { file: "works/testdance.gif", name: "Dance (test)" },
+    { file: "works/kula.gif", name: "Orb" }
+  ]
+};
+    const gallery = document.getElementById("gallery");
+    const sections = document.querySelectorAll(".section");
+
+    sections.forEach(sec => {
+      sec.addEventListener("click", () => {
+        const name = sec.dataset.section;
+        showGallery(name);
+      });
+    });
+
+function showGallery(name) {
+  gallery.innerHTML = "";
+  works[name].forEach(item => {   // wcześniej: file
+    const div = document.createElement("div");
+    div.classList.add("gallery-item");
+
+    if (item.file.endsWith(".mp4") || item.file.endsWith(".mov")) {
+      const video = document.createElement("video");
+      video.src = item.file;
+      video.muted = true;
+      video.loop = true;
+      video.autoplay = true;
+      div.appendChild(video);
+    } else {
+      const img = document.createElement("img");
+      img.src = item.file;
+      div.appendChild(img);
+    }
+
+    div.addEventListener("click", () => openLightbox(item));  // przekazujemy cały obiekt
+    gallery.appendChild(div);
+  });
+}
+
+
+    // LIGHTBOX
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImage = document.getElementById("lightboxImage");
+    const lightboxVideo = document.getElementById("lightboxVideo");
+    const imageName = document.getElementById("imageName");
+    const closeLightbox = document.getElementById("closeLightbox");
+
+function openLightbox(item) {
+  lightbox.style.display = "flex";
+  imageName.textContent = item.name;
+
+  if (item.file.endsWith(".mp4") || item.file.endsWith(".mov")) {
+  lightboxImage.style.display = "none";
+  lightboxVideo.style.display = "block";
+  lightboxVideo.src = item.file;
+  lightboxVideo.play();
+} else {
+  lightboxVideo.style.display = "none";
+  lightboxImage.style.display = "block";
+  lightboxImage.src = item.file;
+}
+
+  // <-- tutaj dodajesz wywołanie animacji pikseli
+  pixelEffectOnClick(item, lightbox);
+}
+
+    closeLightbox.addEventListener("click", () => {
+      lightbox.style.display = "none";
+      lightboxVideo.pause();
+    });
+
+// wszystkie projekty bez gif/mp4
+
+const allProjects = [
+  { file: "works/Soter (1).gif", name: "Soter (my character)" },
+  { file: "works/postacie1.png", name: "Characters from 'Cookie Run: Kingdom'" },
+  { file: "works/postacie2.png", name: "Characters from 'Undertale' and 'FNAF'" },
+  { file: "works/postac.gif", name: "Character test from 'Fundamental Paper Education'" },
+  { file: "works/my_two_sides.png", name: "My character 'Two Sides'" },
+  { file: "works/mem.mov", name: "Trendy TikTok animation" },
+  { file: "works/japanr2.png", name: "Unfinished Japanese building project" }
+];
+
+const carousel = document.querySelector(".carousel");
+
+// generujemy elementy karuzeli
+allProjects.forEach(item => {
+  const div = document.createElement("div");
+  div.classList.add("carousel-item");
+
+  if (item.file.endsWith(".mp4") || item.file.endsWith(".mov")) {
+  const video = document.createElement("video");
+  video.src = item.file;
+  video.muted = true;
+  video.loop = true;
+  video.autoplay = true;
+  video.playsInline = true;
+  div.appendChild(video);
+} else {
+  const img = document.createElement("img");
+  img.src = item.file;
+  div.appendChild(img);
+}
+
+  // overlay z nazwą projektu
+  const title = document.createElement("div");
+  title.classList.add("project-name");
+  title.textContent = item.name;
+  title.style.position = "absolute";
+  title.style.top = "50%";
+  title.style.left = "50%";
+  title.style.transform = "translate(-50%, -50%)";
+  title.style.color = "white";
+  title.style.fontFamily = "'Press Start 2P', monospace";
+  title.style.fontSize = "10px";
+  title.style.textAlign = "center";
+  title.style.pointerEvents = "none";
+  title.style.opacity = "0";
+  title.style.transition = "opacity 0.2s";
+  div.appendChild(title);
+
+  // efekt przy hover
+  div.addEventListener("mouseenter", () => title.style.opacity = "1");
+  div.addEventListener("mouseleave", () => title.style.opacity = "0");
+
+  // kliknięcie otwiera lightbox tak samo jak sekcje
+  div.addEventListener("click", () => openLightbox(item));
+
+  carousel.appendChild(div);
+});
+
+// przyciski przewijania
+const btnLeft = document.querySelector(".carousel-btn.left");
+const btnRight = document.querySelector(".carousel-btn.right");
+
+btnLeft.addEventListener("click", () => {
+  carousel.scrollBy({ left: -160, behavior: "smooth" });
+});
+
+btnRight.addEventListener("click", () => {
+  carousel.scrollBy({ left: 160, behavior: "smooth" });
+});
+
+
+  </script>
+
+<script>
+const galleryItems = document.querySelectorAll('.gallery-item');
+
+galleryItems.forEach(item => {
+  item.addEventListener('mouseenter', function(e) {
+    for (let i = 0; i < 5; i++) { // ilość pikseli na efekt
+      const pixel = document.createElement('div');
+      pixel.classList.add('project-pixel');
+
+      // losowe kierunki
+      pixel.style.setProperty('--rand-x', Math.random());
+      pixel.style.setProperty('--rand-y', Math.random());
+
+      // ustaw pozycję startową w obrębie elementu
+      const rect = item.getBoundingClientRect();
+      pixel.style.left = (rect.left + Math.random() * rect.width) + 'px';
+      pixel.style.top = (rect.top + Math.random() * rect.height) + 'px';
+
+      document.body.appendChild(pixel);
+
+      pixel.addEventListener('animationend', () => {
+        pixel.remove();
+      });
+    }
+  });
+});
+</script>
+<!-- OKIENKO KONTAKTU -->
+<div id="contactPopup" class="contact-popup">
+  <div class="contact-content">
+    <h2>CONTACT ME:</h2>
+    <p>- NR TEL: 577 981 140</p>
+    <p>- MAIL: lidka.08k@gmail.com</p>
+    <p>- FACEBOOK: Hakow Fex albo Lidka Kowalska</p>
+    <button id="closeContact" class="close-contact">ZAMKNIJ</button>
+  </div>
+</div>
+
+<style>
+/* PRZYCISK KONTAKT */
+.contact-button {
+  background: #00ff00;
+  color: black;
+  border: 3px solid #00ff00;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 14px;
+  padding: 16px 24px;
+  border-radius: 16px;
+  cursor: pointer;
+  box-shadow: 0 0 16px #00ff00;
+  transition: 0.3s;
+  margin-top: 30px;
+}
+
+.contact-button:hover {
+  background: black;
+  color: #00ff00;
+}
+
+/* POPUP KONTAKTU */
+.contact-popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+}
+
+.contact-content {
+  background: #00ff00;
+  color: black;
+  padding: 30px 40px;
+  border: 4px solid black;
+  border-radius: 20px;
+  text-align: left;
+  font-family: 'Press Start 2P', monospace;
+  max-width: 500px;
+  box-shadow: 0 0 30px #00ff00;
+}
+
+.contact-content h2 {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.contact-content p {
+  font-size: 12px;
+  margin: 10px 0;
+}
+
+/* PRZYCISK ZAMKNIJ */
+.close-contact {
+  display: block;
+  background: black;
+  color: #00ff00;
+  border: 2px solid black;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 12px;
+  padding: 10px 18px;
+  margin: 20px auto 0 auto;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.close-contact:hover {
+  background: #00ff00;
+  color: black;
+}
+  /* --- RAMKA Z PROGRAMAMI --- */
+.programs-frame {
+  border: 3px solid #00ff00;
+  border-radius: 15px;
+  padding: 20px 25px;
+  max-width: 550px;
+  margin: 20px auto 40px auto;
+  background: #111;
+  box-shadow: 0 0 15px #00ff00;
+  text-align: center;
+}
+
+.programs-frame h2 {
+  color: #00ff00;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+.programs-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.program {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 110px;
+}
+
+.program img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 0 6px #00ff00);
+  transition: transform 0.2s, filter 0.2s;
+}
+
+.program img:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 10px #00ff00);
+}
+
+.program p {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: white;
+  text-align: center;
+  line-height: 1.4;
+}
+</style>
+
+<script>
+// Otwieranie i zamykanie popupu
+document.getElementById("contactBtn").addEventListener("click", () => {
+  document.getElementById("contactPopup").style.display = "flex";
+});
+
+document.getElementById("closeContact").addEventListener("click", () => {
+  document.getElementById("contactPopup").style.display = "none";
+});
+</script>
+</body>
+</html>
