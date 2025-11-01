@@ -427,157 +427,6 @@
     footer a:hover {
       color: white;
     }
-/* ====================== */
-/* 🔹 WERSJA MOBILNA 🔹 */
-/* ====================== */
-@media (max-width: 768px) {
-
-  body {
-    font-size: 10px;
-    overflow-x: hidden;
-  }
-
-  .container {
-    padding: 20px 10px;
-  }
-
-  .profile {
-    width: 120px;
-    height: 120px;
-    margin-bottom: 20px;
-  }
-
-  .about h1 {
-    font-size: 12px;
-  }
-
-  .about p {
-    font-size: 12px;
-    line-height: 1.5em;
-  }
-
-  /* Sekcje */
-  .sections {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .section {
-    width: 80%;
-    font-size: 10px;
-    padding: 12px;
-  }
-
-  /* Galeria */
-  .gallery {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
-    margin: 20px auto;
-  }
-
-  .gallery-item {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1 / 1;
-  }
-
-  /* Lightbox */
-  .lightbox-content {
-    max-width: 95%;
-  }
-
-  .close-btn {
-    font-size: 10px;
-    padding: 10px 15px;
-  }
-
-  #imageName {
-    font-size: 10px;
-  }
-
-  /* Karuzela projektów */
-  .carousel-wrapper {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .carousel {
-    overflow-x: scroll;
-    gap: 6px;
-    width: 100%;
-  }
-
-  .carousel-item {
-    width: 120px;
-    height: 120px;
-  }
-
-  .carousel-btn {
-    font-size: 12px;
-    padding: 6px 10px;
-    margin: 8px 0;
-  }
-
-  /* Programy */
-  .programs-frame {
-    padding: 10px;
-    max-width: 90%;
-  }
-
-  .programs-grid {
-    gap: 10px;
-  }
-
-  .program {
-    width: 80px;
-  }
-
-  .program img {
-    width: 40px;
-    height: 40px;
-  }
-
-  .program p {
-    font-size: 7px;
-  }
-
-  /* Trójkąty i piksele — mniej intensywne na mobile */
-  #triangle-top,
-  #triangle-bottom {
-    display: none;
-  }
-
-  .side-pixels {
-    display: none;
-  }
-
-  /* Stopka */
-  footer a {
-    display: block;
-    margin: 8px 0;
-    font-size: 12px;
-  }
-
-  .contact-button {
-    font-size: 10px;
-    padding: 10px 16px;
-  }
-
-  /* Okno kontaktu */
-  .contact-content {
-    padding: 20px;
-    font-size: 10px;
-    max-width: 90%;
-  }
-
-  .contact-content h2 {
-    font-size: 12px;
-  }
-
-  .contact-content p {
-    font-size: 10px;
-  }
-}
   </style>
 </head>
 <body>
@@ -795,7 +644,7 @@ function showGallery(name) {
       div.appendChild(img);
     }
 
-    div.addEventListener("click", () => openLightbox(item));  // przekazujemy cały obiekt
+    div.addEventListener("click", () => openLightbox(item, works[name]));  // przekazujemy cały obiekt
     gallery.appendChild(div);
   });
 }
@@ -887,7 +736,7 @@ allProjects.forEach(item => {
   div.addEventListener("mouseleave", () => title.style.opacity = "0");
 
   // kliknięcie otwiera lightbox tak samo jak sekcje
-  div.addEventListener("click", () => openLightbox(item));
+  div.addEventListener("click", () => openLightbox(item, works[name]));
 
   carousel.appendChild(div);
 });
@@ -932,6 +781,95 @@ galleryItems.forEach(item => {
       });
     }
   });
+});
+</script>
+    <script>
+let currentItemIndex = 0;
+let currentGallery = [];
+
+function openLightbox(item, galleryArray = allProjects) {
+  currentGallery = galleryArray;
+  currentItemIndex = galleryArray.findIndex(i => i.file === item.file);
+
+  lightbox.style.display = "flex";
+  imageName.textContent = item.name;
+
+  if (item.file.endsWith(".mp4") || item.file.endsWith(".mov")) {
+    lightboxImage.style.display = "none";
+    lightboxVideo.style.display = "block";
+    lightboxVideo.src = item.file;
+    lightboxVideo.play();
+  } else {
+    lightboxVideo.style.display = "none";
+    lightboxImage.style.display = "block";
+    lightboxImage.src = item.file;
+  }
+}
+
+// przyciski zamykania
+closeLightbox.addEventListener("click", () => {
+  lightbox.style.display = "none";
+  lightboxVideo.pause();
+});
+
+// ➤➤ DODAJ TE LINIE ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇
+
+// Tworzymy przyciski „poprzedni / następny”
+const prevBtn = document.createElement("button");
+prevBtn.textContent = "◀";
+prevBtn.className = "close-btn";
+prevBtn.style.position = "absolute";
+prevBtn.style.left = "30px";
+prevBtn.style.top = "50%";
+prevBtn.style.transform = "translateY(-50%)";
+
+const nextBtn = document.createElement("button");
+nextBtn.textContent = "▶";
+nextBtn.className = "close-btn";
+nextBtn.style.position = "absolute";
+nextBtn.style.right = "30px";
+nextBtn.style.top = "50%";
+nextBtn.style.transform = "translateY(-50%)";
+
+// dodajemy przyciski do lightboxa
+lightbox.appendChild(prevBtn);
+lightbox.appendChild(nextBtn);
+
+prevBtn.addEventListener("click", () => showPrevNext(-1));
+nextBtn.addEventListener("click", () => showPrevNext(1));
+
+function showPrevNext(direction) {
+  currentItemIndex += direction;
+
+  // pętla — wracamy na początek/koniec
+  if (currentItemIndex < 0) currentItemIndex = currentGallery.length - 1;
+  if (currentItemIndex >= currentGallery.length) currentItemIndex = 0;
+
+  const newItem = currentGallery[currentItemIndex];
+  imageName.textContent = newItem.name;
+
+  if (newItem.file.endsWith(".mp4") || newItem.file.endsWith(".mov")) {
+    lightboxImage.style.display = "none";
+    lightboxVideo.style.display = "block";
+    lightboxVideo.src = newItem.file;
+    lightboxVideo.play();
+  } else {
+    lightboxVideo.style.display = "none";
+    lightboxImage.style.display = "block";
+    lightboxImage.src = newItem.file;
+  }
+}
+
+// ➤ Możliwość przewijania klawiaturą
+document.addEventListener("keydown", (e) => {
+  if (lightbox.style.display === "flex") {
+    if (e.key === "ArrowRight") showPrevNext(1);
+    if (e.key === "ArrowLeft") showPrevNext(-1);
+    if (e.key === "Escape") {
+      lightbox.style.display = "none";
+      lightboxVideo.pause();
+    }
+  }
 });
 </script>
 <!-- OKIENKO KONTAKTU -->
@@ -1072,7 +1010,158 @@ galleryItems.forEach(item => {
   text-align: center;
   line-height: 1.4;
 }
-</style>
+/* ====================== */
+/* 🔹 WERSJA MOBILNA 🔹 */
+/* ====================== */
+@media (max-width: 768px) {
+
+  body {
+    font-size: 10px;
+    overflow-x: hidden;
+  }
+
+  .container {
+    padding: 20px 10px;
+  }
+
+  .profile {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 20px;
+  }
+
+  .about h1 {
+    font-size: 12px;
+  }
+
+  .about p {
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  /* Sekcje */
+  .sections {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .section {
+    width: 80%;
+    font-size: 10px;
+    padding: 12px;
+  }
+
+  /* Galeria */
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    margin: 20px auto;
+  }
+
+  .gallery-item {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  /* Lightbox */
+  .lightbox-content {
+    max-width: 95%;
+  }
+
+  .close-btn {
+    font-size: 10px;
+    padding: 10px 15px;
+  }
+
+  #imageName {
+    font-size: 10px;
+  }
+
+  /* Karuzela projektów */
+  .carousel-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .carousel {
+    overflow-x: scroll;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .carousel-item {
+    width: 120px;
+    height: 120px;
+  }
+
+  .carousel-btn {
+    font-size: 12px;
+    padding: 6px 10px;
+    margin: 8px 0;
+  }
+
+  /* Programy */
+  .programs-frame {
+    padding: 10px;
+    max-width: 90%;
+  }
+
+  .programs-grid {
+    gap: 10px;
+  }
+
+  .program {
+    width: 80px;
+  }
+
+  .program img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .program p {
+    font-size: 7px;
+  }
+
+  /* Trójkąty i piksele — mniej intensywne na mobile */
+  #triangle-top,
+  #triangle-bottom {
+    display: none;
+  }
+
+  .side-pixels {
+    display: none;
+  }
+
+  /* Stopka */
+  footer a {
+    display: block;
+    margin: 8px 0;
+    font-size: 12px;
+  }
+
+  .contact-button {
+    font-size: 10px;
+    padding: 10px 16px;
+  }
+
+  /* Okno kontaktu */
+  .contact-content {
+    padding: 20px;
+    font-size: 10px;
+    max-width: 90%;
+  }
+
+  .contact-content h2 {
+    font-size: 12px;
+  }
+
+  .contact-content p {
+    font-size: 10px;
+  }
+}
+  </style>
 
 <script>
 // Otwieranie i zamykanie popupu
@@ -1086,8 +1175,13 @@ document.getElementById("closeContact").addEventListener("click", () => {
 </script>
 </body>
 
-
 </html>
+
+
+
+
+
+
 
 
 
