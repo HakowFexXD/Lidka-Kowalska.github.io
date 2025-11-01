@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select Language</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Press Start 2P', monospace;
+      color: #00ff00;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 14px;
+      color: #00ff00;
+      text-shadow: 0 0 10px #00ff00;
+      margin-bottom: 40px;
+    }
+
+    .lang-buttons {
+      display: flex;
+      gap: 40px;
+    }
+
+    .lang-btn {
+      border: 3px solid #00ff00;
+      color: #00ff00;
+      background: #111;
+      padding: 15px 25px;
+      border-radius: 15px;
+      font-size: 10px;
+      text-decoration: none;
+      box-shadow: 0 0 15px #00ff00;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .lang-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px #00ff00;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 15px;
+      font-size: 8px;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>SELECT LANGUAGE</h1>
+
+  <div class="lang-buttons">
+    <a href="main-pl.html" class="lang-btn">POLISH</a>
+    <a href="main-en.html" class="lang-btn">ENGLISH</a>
+  </div>
+
+  <footer>© 2025 Hakowfex</footer>
+
+</body>
+</html>
