@@ -650,7 +650,6 @@ function showGallery(name) {
 
 function openLightbox(item) {
   lightbox.style.display = "flex";
-  pixelReveal(lightbox);
   imageName.textContent = item.name;
 
   if (item.file.endsWith(".mp4") || item.file.endsWith(".mov")) {
@@ -913,42 +912,11 @@ galleryItems.forEach(item => {
   text-align: center;
   line-height: 1.4;
 }
-  /* --- ANIMACJA POJAWIANIA SIĘ Z PIKSELI --- */
-.pixel-reveal {
-  position: absolute;
-  inset: 0;
-  background: black;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 8px);
-  grid-template-rows: repeat(auto-fill, 8px);
-  z-index: 500;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.pixel-cell {
-  width: 8px;
-  height: 8px;
-  background: #00ff00;
-  opacity: 0;
-  animation: pixelFade 0.8s forwards;
-}
-
-@keyframes pixelFade {
-  0% { opacity: 1; transform: scale(1.2); }
-  70% { opacity: 1; transform: scale(1); }
-  100% { opacity: 0; }
-}
 </style>
 
 <script>
 // Otwieranie i zamykanie popupu
 document.getElementById("contactBtn").addEventListener("click", () => {
-  const popup = document.getElementById("contactPopup");
-  popup.style.display = "flex";
-  pixelReveal(popup);
-});
-
   document.getElementById("contactPopup").style.display = "flex";
 });
 
@@ -956,32 +924,5 @@ document.getElementById("closeContact").addEventListener("click", () => {
   document.getElementById("contactPopup").style.display = "none";
 });
 </script>
-    <script>
-// --- FUNKCJA ANIMACJI PIKSELI (REVEAL EFFECT) ---
-function pixelReveal(target) {
-  const overlay = document.createElement("div");
-  overlay.classList.add("pixel-reveal");
-  target.appendChild(overlay);
-
-  const cols = Math.ceil(window.innerWidth / 8);
-  const rows = Math.ceil(window.innerHeight / 8);
-  const total = cols * rows;
-
-  for (let i = 0; i < total; i++) {
-    const cell = document.createElement("div");
-    cell.classList.add("pixel-cell");
-    cell.style.animationDelay = (Math.random() * 0.6) + "s";
-    overlay.appendChild(cell);
-  }
-
-  // Usuń po zakończeniu animacji (ok. 1.2s)
-  setTimeout(() => overlay.remove(), 1200);
-}
-</script>
 </body>
 </html>
-
-
-
-
-
