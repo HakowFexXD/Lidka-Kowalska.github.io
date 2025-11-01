@@ -634,7 +634,7 @@ function showGallery(name) {
       div.appendChild(img);
     }
 
-    div.addEventListener("click", () => openLightbox(item));  // przekazujemy cały obiekt
+    div.addEventListener("click", () => openLightbox(item, works[name]));  // przekazujemy cały obiekt
     gallery.appendChild(div);
   });
 }
@@ -726,7 +726,7 @@ allProjects.forEach(item => {
   div.addEventListener("mouseleave", () => title.style.opacity = "0");
 
   // kliknięcie otwiera lightbox tak samo jak sekcje
-  div.addEventListener("click", () => openLightbox(item));
+  div.addEventListener("click", () => openLightbox(item, works[name]));
 
   carousel.appendChild(div);
 });
@@ -1167,4 +1167,5 @@ document.getElementById("closeContact").addEventListener("click", () => {
 </body>
 
 </html>
+
 
