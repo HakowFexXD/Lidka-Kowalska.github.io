@@ -263,6 +263,12 @@
   width: 180px;
   cursor: pointer;
   transition: 0.3s;
+  
+  /* ⬇⬇ DODAJ TE LINIE ⬇⬇ */
+  display: flex;
+  align-items: center;   /* wyśrodkowanie w pionie */
+  justify-content: center; /* wyśrodkowanie w poziomie */
+  text-align: center; /* żeby tekst się nie rozjeżdżał */
 }
 
 .section:hover {
@@ -436,17 +442,17 @@
 <!-- NOWA SEKCJA: O MNIE Z RAMKĄ -->
 <div class="about-wrapper">
   <section class="about">
-    <h1>O MNIE</h1>
+    <h1>ABOUT ME</h1>
     <p>
-      Siema! Nazywam się Lidka Kowalska, aka "Hakow Fex" lub "Xofer". Jestem artystką i graficzką. Tworzę animacje 2D, grafiki oraz rysunki. Potrafię również projektować przedmioty użytkowe, takie jak przypinki, nak  lejki czy breloki. Uczę się w Technikum Grafiki i Poligrafii Cyfrowej w Warszawie, a w weekendy mieszkam w Grudziądzu.
+     Siema! Nazywam się Lidka Kowalska, aka "Hakow Fex" lub "Xofer". Jestem artystką i graficzką. Tworzę animacje 2D, grafiki oraz rysunki. Potrafię również projektować przedmioty użytkowe, takie jak przypinki, nak  lejki czy breloki. Uczę się w Technikum Grafiki i Poligrafii Cyfrowej w Warszawie, a w weekendy mieszkam w Grudziądzu.
     </p>
   </section>
 </div>
 <div class="sections-wrapper">
   <div class="sections">
     <div class="section" data-section="GRAFIKA">GRAFIKA</div>
-    <div class="section" data-section="RYSUNEK">RYSUNEK</div>
-    <div class="section" data-section="ANIMACJE 2D">ANIMACJE 2D</div>
+      <div class="section" data-section="RYSUNEK">RYSUNEK</div>
+      <div class="section" data-section="ANIMACJE 2D">ANIMACJE 2D</div>
   </div>
 
   <div id="gallery" class="gallery"></div>
@@ -518,7 +524,7 @@
   </div>
 </div>
       
-  <a href="https://hakowfex.carrd.co" target="_blank">Moje linki</a>
+  <a href="https://hakowfex.carrd.co" target="_blank">MOJE LINKI</a>
   <br><br>
 
   <!-- PRZYCISK KONTAKT -->
@@ -528,11 +534,11 @@
 <!-- OKIENKO KONTAKTU -->
 <div id="contactPopup" class="contact-popup">
   <div class="contact-content">
-    <h2>KONTAKT DO MNIE:</h2>
+    <h2>KONTACKT DO MNIE:</h2>
     <p>- NR TEL: 577 981 140</p>
     <p>- MAIL: lidka.08k@gmail.com</p>
     <p>- FACEBOOK: Hakow Fex albo Lidka Kowalska</p>
-    <button id="closeContact" class="close-contact">ZAMKNIJ</button>
+    <button id="closeContact" class="close-contact">ZAKMKNIJ</button>
   </div>
 </div>
 
@@ -578,7 +584,7 @@ window.addEventListener("resize", () => {
 
     // GALERIA
 const works = {
-  "GRAFIKA": [
+ "GRAFIKA": [
     { file: "works/dzuma.png", name: "Dżuma" },
     { file: "works/zaproszenie.png", name: "Zaproszenie (test)" },
     { file: "works/style.png", name: "Style" },
@@ -674,7 +680,7 @@ function openLightbox(item) {
 // wszystkie projekty bez gif/mp4
 
 const allProjects = [
-  { file: "works/Soter (1).gif", name: "Soter (moja postać)" },
+   { file: "works/Soter (1).gif", name: "Soter (moja postać)" },
   { file: "works/postacie1.png", name: "Postacie z gry 'Undertale' i 'FNAF'" },
   { file: "works/postacie2.png", name: "Postacie z gier 'Cookie Run: Kingdom'" },
   { file: "works/postac.gif", name: "Test postaci z 'Fundamental Paper Education'" },
@@ -771,6 +777,95 @@ galleryItems.forEach(item => {
       });
     }
   });
+});
+</script>
+    <script>
+let currentItemIndex = 0;
+let currentGallery = [];
+
+function openLightbox(item, galleryArray = allProjects) {
+  currentGallery = galleryArray;
+  currentItemIndex = galleryArray.findIndex(i => i.file === item.file);
+
+  lightbox.style.display = "flex";
+  imageName.textContent = item.name;
+
+  if (item.file.endsWith(".mp4") || item.file.endsWith(".mov")) {
+    lightboxImage.style.display = "none";
+    lightboxVideo.style.display = "block";
+    lightboxVideo.src = item.file;
+    lightboxVideo.play();
+  } else {
+    lightboxVideo.style.display = "none";
+    lightboxImage.style.display = "block";
+    lightboxImage.src = item.file;
+  }
+}
+
+// przyciski zamykania
+closeLightbox.addEventListener("click", () => {
+  lightbox.style.display = "none";
+  lightboxVideo.pause();
+});
+
+// ➤➤ DODAJ TE LINIE ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇
+
+// Tworzymy przyciski „poprzedni / następny”
+const prevBtn = document.createElement("button");
+prevBtn.textContent = "◀";
+prevBtn.className = "close-btn";
+prevBtn.style.position = "absolute";
+prevBtn.style.left = "30px";
+prevBtn.style.top = "50%";
+prevBtn.style.transform = "translateY(-50%)";
+
+const nextBtn = document.createElement("button");
+nextBtn.textContent = "▶";
+nextBtn.className = "close-btn";
+nextBtn.style.position = "absolute";
+nextBtn.style.right = "30px";
+nextBtn.style.top = "50%";
+nextBtn.style.transform = "translateY(-50%)";
+
+// dodajemy przyciski do lightboxa
+lightbox.appendChild(prevBtn);
+lightbox.appendChild(nextBtn);
+
+prevBtn.addEventListener("click", () => showPrevNext(-1));
+nextBtn.addEventListener("click", () => showPrevNext(1));
+
+function showPrevNext(direction) {
+  currentItemIndex += direction;
+
+  // pętla — wracamy na początek/koniec
+  if (currentItemIndex < 0) currentItemIndex = currentGallery.length - 1;
+  if (currentItemIndex >= currentGallery.length) currentItemIndex = 0;
+
+  const newItem = currentGallery[currentItemIndex];
+  imageName.textContent = newItem.name;
+
+  if (newItem.file.endsWith(".mp4") || newItem.file.endsWith(".mov")) {
+    lightboxImage.style.display = "none";
+    lightboxVideo.style.display = "block";
+    lightboxVideo.src = newItem.file;
+    lightboxVideo.play();
+  } else {
+    lightboxVideo.style.display = "none";
+    lightboxImage.style.display = "block";
+    lightboxImage.src = newItem.file;
+  }
+}
+
+// ➤ Możliwość przewijania klawiaturą
+document.addEventListener("keydown", (e) => {
+  if (lightbox.style.display === "flex") {
+    if (e.key === "ArrowRight") showPrevNext(1);
+    if (e.key === "ArrowLeft") showPrevNext(-1);
+    if (e.key === "Escape") {
+      lightbox.style.display = "none";
+      lightboxVideo.pause();
+    }
+  }
 });
 </script>
 <!-- OKIENKO KONTAKTU -->
@@ -924,11 +1019,6 @@ document.getElementById("closeContact").addEventListener("click", () => {
 });
 </script>
 </body>
+
 </html>
-
-
-
-
-
-
 
