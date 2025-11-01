@@ -19,33 +19,40 @@
     }
 
     h1 {
-      font-size: 24px; /* było 14px → teraz większy */
+      font-size: 24px;
       color: #00ff00;
       text-shadow: 0 0 15px #00ff00;
       margin-bottom: 60px;
       text-align: center;
     }
 
-    .lang-buttons {
+    .device-buttons, .lang-buttons {
       display: flex;
-      gap: 60px;
+      flex-direction: column;
+      gap: 25px;
+      align-items: center;
     }
 
-    .lang-btn {
+    .lang-btn, .device-btn {
       border: 3px solid #00ff00;
       color: #00ff00;
       background: #111;
-      padding: 25px 45px; /* większe przyciski */
+      padding: 25px 45px;
       border-radius: 20px;
-      font-size: 14px; /* było 10px → większa czcionka */
+      font-size: 14px;
       text-decoration: none;
       box-shadow: 0 0 20px #00ff00;
       transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
     }
 
-    .lang-btn:hover {
+    .lang-btn:hover, .device-btn:hover {
       transform: scale(1.15);
       box-shadow: 0 0 35px #00ff00;
+    }
+
+    .lang-buttons {
+      display: none; /* ukryte na start */
     }
 
     footer {
@@ -60,14 +67,43 @@
 
   <h1>SELECT LANGUAGE</h1>
 
-  <div class="lang-buttons">
+  <!-- Wybór urządzenia -->
+  <div class="device-buttons">
+    <button class="device-btn" id="computer-btn">IM ON COMPUTER</button>
+    <button class="device-btn" id="mobile-btn">IM ON MOBILE</button>
+  </div>
+
+  <!-- Przyciski języka dla komputera -->
+  <div class="lang-buttons" id="computer-langs">
     <a href="main-pl.html" class="lang-btn">POLSKI</a>
     <a href="main-eng.html" class="lang-btn">ENGLISH</a>
   </div>
 
+  <!-- Przyciski języka dla telefonu -->
+  <div class="lang-buttons" id="mobile-langs">
+    <a href="main-pl-mobile.html" class="lang-btn">POLSKI</a>
+    <a href="main-eng-mobile.html" class="lang-btn">ENGLISH</a>
+  </div>
+
   <footer>Hakow Fex / Lidka Kowalska</footer>
+
+  <script>
+    const computerBtn = document.getElementById('computer-btn');
+    const mobileBtn = document.getElementById('mobile-btn');
+    const computerLangs = document.getElementById('computer-langs');
+    const mobileLangs = document.getElementById('mobile-langs');
+    const deviceButtons = document.querySelector('.device-buttons');
+
+    computerBtn.addEventListener('click', () => {
+      deviceButtons.style.display = 'none';
+      computerLangs.style.display = 'flex';
+    });
+
+    mobileBtn.addEventListener('click', () => {
+      deviceButtons.style.display = 'none';
+      mobileLangs.style.display = 'flex';
+    });
+  </script>
 
 </body>
 </html>
-
-
