@@ -773,6 +773,96 @@ galleryItems.forEach(item => {
   });
 });
 </script>
+
+    <script>
+let currentItemIndex = 0;
+let currentGallery = [];
+
+function openLightbox(item, galleryArray = allProjects) {
+  currentGallery = galleryArray;
+  currentItemIndex = galleryArray.findIndex(i => i.file === item.file);
+
+  lightbox.style.display = "flex";
+  imageName.textContent = item.name;
+
+  if (item.file.endsWith(".mp4") || item.file.endsWith(".mov")) {
+    lightboxImage.style.display = "none";
+    lightboxVideo.style.display = "block";
+    lightboxVideo.src = item.file;
+    lightboxVideo.play();
+  } else {
+    lightboxVideo.style.display = "none";
+    lightboxImage.style.display = "block";
+    lightboxImage.src = item.file;
+  }
+}
+
+// przyciski zamykania
+closeLightbox.addEventListener("click", () => {
+  lightbox.style.display = "none";
+  lightboxVideo.pause();
+});
+
+// ➤➤ DODAJ TE LINIE ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇
+
+// Tworzymy przyciski „poprzedni / następny”
+const prevBtn = document.createElement("button");
+prevBtn.textContent = "◀";
+prevBtn.className = "close-btn";
+prevBtn.style.position = "absolute";
+prevBtn.style.left = "30px";
+prevBtn.style.top = "50%";
+prevBtn.style.transform = "translateY(-50%)";
+
+const nextBtn = document.createElement("button");
+nextBtn.textContent = "▶";
+nextBtn.className = "close-btn";
+nextBtn.style.position = "absolute";
+nextBtn.style.right = "30px";
+nextBtn.style.top = "50%";
+nextBtn.style.transform = "translateY(-50%)";
+
+// dodajemy przyciski do lightboxa
+lightbox.appendChild(prevBtn);
+lightbox.appendChild(nextBtn);
+
+prevBtn.addEventListener("click", () => showPrevNext(-1));
+nextBtn.addEventListener("click", () => showPrevNext(1));
+
+function showPrevNext(direction) {
+  currentItemIndex += direction;
+
+  // pętla — wracamy na początek/koniec
+  if (currentItemIndex < 0) currentItemIndex = currentGallery.length - 1;
+  if (currentItemIndex >= currentGallery.length) currentItemIndex = 0;
+
+  const newItem = currentGallery[currentItemIndex];
+  imageName.textContent = newItem.name;
+
+  if (newItem.file.endsWith(".mp4") || newItem.file.endsWith(".mov")) {
+    lightboxImage.style.display = "none";
+    lightboxVideo.style.display = "block";
+    lightboxVideo.src = newItem.file;
+    lightboxVideo.play();
+  } else {
+    lightboxVideo.style.display = "none";
+    lightboxImage.style.display = "block";
+    lightboxImage.src = newItem.file;
+  }
+}
+
+// ➤ Możliwość przewijania klawiaturą
+document.addEventListener("keydown", (e) => {
+  if (lightbox.style.display === "flex") {
+    if (e.key === "ArrowRight") showPrevNext(1);
+    if (e.key === "ArrowLeft") showPrevNext(-1);
+    if (e.key === "Escape") {
+      lightbox.style.display = "none";
+      lightboxVideo.pause();
+    }
+  }
+});
+</script>
 <!-- OKIENKO KONTAKTU -->
 <div id="contactPopup" class="contact-popup">
   <div class="contact-content">
@@ -1077,3 +1167,4 @@ document.getElementById("closeContact").addEventListener("click", () => {
 </body>
 
 </html>
+
