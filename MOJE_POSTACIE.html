@@ -152,66 +152,63 @@
     background: white;
   }
 
-  /* LIGHTBOX (kopiowane zachowanie z 1. strony) */
-  .lightbox {
-    display: none;
-    position: fixed;
-    z-index: 2000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.88);
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 20px;
-  }
-  .lightbox-content {
-    position: relative;
-    max-width: 90%;
-    text-align: center;
-  }
-  .close-btn {
-    background: var(--neon);
-    border: none;
-    color: black;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 12px;
-    padding: 12px 14px;
-    cursor: pointer;
-    border-radius: 12px;
-    box-shadow: 0 0 16px var(--neon);
-    margin-bottom: 12px;
-  }
-  .close-btn:hover { background: white; }
+/* --- POPRAWIONY LIGHTBOX I STRZAŁKI --- */
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  inset: 0;
+  background: rgba(0,0,0,0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
 
-  #lightboxImage,
-  #lightboxVideo {
-    max-width: 90%;
-    max-height: 80vh;
-    border: 4px solid var(--neon);
-    border-radius: 12px;
-    object-fit: contain;
-    background: black;
-  }
+.lightbox-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px; /* ODSTĘP między obrazem a strzałkami */
+}
 
-  #imageName {
-    color: var(--neon);
-    margin-top: 14px;
-    font-size: 12px;
-  }
+#lightboxImage,
+#lightboxVideo {
+  max-width: 80vw;
+  max-height: 80vh;
+  border: 4px solid var(--neon);
+  border-radius: 12px;
+  object-fit: contain;
+  background: black;
+  display: block;
+}
 
-  /* PRZYCISKI NA BOKACH (prev/next) */
-  .lightbox-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 2100;
-  }
-  .nav-left { left: 20px; }
-  .nav-right { right: 20px; }
+/* STRZAŁKI – stała pozycja obok obrazu */
+.lightbox-nav {
+  background: var(--neon);
+  color: black;
+  border: none;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  font-size: 24px;
+  font-family: 'Press Start 2P';
+  cursor: pointer;
+  box-shadow: 0 0 12px var(--neon);
+  flex-shrink: 0; /* NIE pozwala ściskać strzałek */
+}
 
+/* Rozmieszczenie */
+#prevBtn { order: 1; }
+#lightboxImage, #lightboxVideo { order: 2; }
+#nextBtn { order: 3; }
+
+/* Na malutkich ekranach zmniejszamy odstęp */
+@media (max-width: 600px) {
+  .lightbox-content { gap: 20px; }
+  .lightbox-nav { width: 45px; height: 45px; font-size: 18px; }
+}
   /* responsywność */
   @media (max-width: 700px) {
     .section-btn { width: 100%; max-width: 380px; }
@@ -493,5 +490,6 @@ document.addEventListener('keydown', (e) => {
 </script>
 </body>
 </html>
+
 
 
