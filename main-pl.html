@@ -1050,7 +1050,11 @@ document.addEventListener("keydown", (e) => {
   height: auto;
   aspect-ratio: unset;
 }
-
+/* Większe miniatury w MOJE POSTACIE */
+.gallery.two-columns .gallery-item {
+  scale: 1.15;      /* powiększenie o 15% */
+  transform-origin: center;
+}
 .gallery.two-columns .gallery-item img,
 .gallery.two-columns .gallery-item video {
   width: 100%;
@@ -1072,5 +1076,6 @@ document.getElementById("closeContact").addEventListener("click", () => {
 </body>
 
 </html>
+
 
 
