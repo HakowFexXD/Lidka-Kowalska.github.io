@@ -1,3 +1,5 @@
+Chcę dodać sekcję OBOK "ANIMACJE 2D" pod tytułem "MOJE POSTACIE (dla ciekawskich :P)". Te (dla ciekawskich :P) jest mniejsze i pod tekstem MOJE POSTACIE. Ona Ma projekty moich postaci jak w innych sekcjach, tylko że ma inny układ. Ta sekcja ma 2 kolumny. Rozmiary obrazów przed kliknięciem są dopasowane do rozmiarów projektów, ale zmniejszone, żeby było wygodne dla widoku. Jak przsunę myszką na obraz to wyświetla sie nazwa (tak jak w karuzeli obrazów) A po kliknięciu tak samo jak w innych sekcja i projektach.
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -451,17 +453,9 @@
 <div class="sections-wrapper">
   <div class="sections">
     <div class="section" data-section="GRAFIKA">GRAFIKA</div>
-    <div class="section" data-section="RYSUNEK">RYSUNEK</div>
-    <div class="section" data-section="ANIMACJE 2D">ANIMACJE 2D</div>
-
-    <!-- NOWA SEKCJA -->
-    <div class="section" data-section="MOJE POSTACIE">
-        <div>
-            MOJE POSTACIE
-            <div style="font-size:8px; margin-top:6px;">(dla ciekawskich :P)</div>
-        </div>
-    </div>
-</div>
+      <div class="section" data-section="RYSUNEK">RYSUNEK</div>
+      <div class="section" data-section="ANIMACJE 2D">ANIMACJE 2D</div>
+  </div>
 
   <div id="gallery" class="gallery"></div>
 
@@ -619,12 +613,6 @@ const works = {
     { file: "works/wolffff.gif", name: "Wilk" },
     { file: "works/testdance.gif", name: "Taniec (test)" },
     { file: "works/kula.gif", name: "Kula" }
-  ],
-    "MOJE POSTACIE": [
-    { file: "works/zen.png", name: "Zen Itu" },
-    { file: "works/grivetherf.png", name: "Grivet Herf / Xofer" },
-    { file: "works/thedoctor.png", name: "The Doctor / Soter" },
-    { file: "works/jakeanddave.png", name: "Jake & Dave" }
   ]
 };
     const gallery = document.getElementById("gallery");
@@ -639,16 +627,7 @@ const works = {
 
 function showGallery(name) {
   gallery.innerHTML = "";
-
-  // Domyślny układ galerii
-  gallery.classList.remove("two-columns");
-
-  // Jeżeli wybrano MOJE POSTACIE → aktywuj layout 2 kolumn
-  if (name === "MOJE POSTACIE") {
-    gallery.classList.add("two-columns");
-  }
-
-  works[name].forEach(item => {
+  works[name].forEach(item => {   // wcześniej: file
     const div = document.createElement("div");
     div.classList.add("gallery-item");
 
@@ -665,15 +644,7 @@ function showGallery(name) {
       div.appendChild(img);
     }
 
-    div.addEventListener("mouseenter", () => {
-      div.style.transform = "scale(1.05)";
-    });
-
-    div.addEventListener("mouseleave", () => {
-      div.style.transform = "scale(1)";
-    });
-
-    div.addEventListener("click", () => openLightbox(item, works[name]));
+    div.addEventListener("click", () => openLightbox(item, works[name]));  // przekazujemy cały obiekt
     gallery.appendChild(div);
   });
 }
@@ -1039,26 +1010,6 @@ document.addEventListener("keydown", (e) => {
   text-align: center;
   line-height: 1.4;
 }
-  /* --- UKŁAD 2 KOLUMN DLA "MOJE POSTACIE" --- */
-/* WIĘKSZE MINIATURY MOJE POSTACIE */
-.gallery.two-columns {
-  gap: 30px !important;
-}
-
-.gallery.two-columns .gallery-item {
-  scale: 1.30;       
-  transform-origin: center;
-}
-  .gallery.two-columns img,
-.gallery.two-columns video {
-  transform: scale(1.2);
-}
-.gallery.two-columns .gallery-item img,
-.gallery.two-columns .gallery-item video {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-}
 </style>
 
 <script>
@@ -1074,15 +1025,3 @@ document.getElementById("closeContact").addEventListener("click", () => {
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
