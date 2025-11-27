@@ -1040,13 +1040,14 @@ document.addEventListener("keydown", (e) => {
   line-height: 1.4;
 }
   /* --- UKŁAD 2 KOLUMN DLA "MOJE POSTACIE" --- */
+/* WIĘKSZE MINIATURY MOJE POSTACIE */
 .gallery.two-columns {
-  grid-template-columns: repeat(2, 1fr) !important;
-  gap: 70px !important;
+  gap: 30px !important;
 }
 
 .gallery.two-columns .gallery-item {
-  scale: 1.70;
+  scale: 1.30;       
+  transform-origin: center;
 }
 .gallery.two-columns .gallery-item img,
 .gallery.two-columns .gallery-item video {
@@ -1069,6 +1070,7 @@ document.getElementById("closeContact").addEventListener("click", () => {
 </body>
 
 </html>
+
 
 
 
