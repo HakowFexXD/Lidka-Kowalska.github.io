@@ -451,9 +451,17 @@
 <div class="sections-wrapper">
   <div class="sections">
     <div class="section" data-section="GRAFIKA">GRAFIKA</div>
-      <div class="section" data-section="RYSUNEK">RYSUNEK</div>
-      <div class="section" data-section="ANIMACJE 2D">ANIMACJE 2D</div>
-  </div>
+    <div class="section" data-section="RYSUNEK">RYSUNEK</div>
+    <div class="section" data-section="ANIMACJE 2D">ANIMACJE 2D</div>
+
+    <!-- NOWA SEKCJA -->
+    <div class="section" data-section="MOJE POSTACIE">
+        <div>
+            MOJE POSTACIE
+            <div style="font-size:8px; margin-top:6px;">(dla ciekawskich :P)</div>
+        </div>
+    </div>
+</div>
 
   <div id="gallery" class="gallery"></div>
 
@@ -611,6 +619,12 @@ const works = {
     { file: "works/wolffff.gif", name: "Wilk" },
     { file: "works/testdance.gif", name: "Taniec (test)" },
     { file: "works/kula.gif", name: "Kula" }
+  ],
+    "MOJE POSTACIE": [
+    { file: "works/postac1.png", name: "Moja postać 1" },
+    { file: "works/postac2.png", name: "Moja postać 2" },
+    { file: "works/postac3.png", name: "Moja postać 3" },
+    { file: "works/postac4.png", name: "Moja postać 4" }
   ]
 };
     const gallery = document.getElementById("gallery");
@@ -625,7 +639,16 @@ const works = {
 
 function showGallery(name) {
   gallery.innerHTML = "";
-  works[name].forEach(item => {   // wcześniej: file
+
+  // Domyślny układ galerii
+  gallery.classList.remove("two-columns");
+
+  // Jeżeli wybrano MOJE POSTACIE → aktywuj layout 2 kolumn
+  if (name === "MOJE POSTACIE") {
+    gallery.classList.add("two-columns");
+  }
+
+  works[name].forEach(item => {
     const div = document.createElement("div");
     div.classList.add("gallery-item");
 
@@ -642,7 +665,15 @@ function showGallery(name) {
       div.appendChild(img);
     }
 
-    div.addEventListener("click", () => openLightbox(item, works[name]));  // przekazujemy cały obiekt
+    div.addEventListener("mouseenter", () => {
+      div.style.transform = "scale(1.05)";
+    });
+
+    div.addEventListener("mouseleave", () => {
+      div.style.transform = "scale(1)";
+    });
+
+    div.addEventListener("click", () => openLightbox(item, works[name]));
     gallery.appendChild(div);
   });
 }
@@ -1008,6 +1039,24 @@ document.addEventListener("keydown", (e) => {
   text-align: center;
   line-height: 1.4;
 }
+  /* --- UKŁAD 2 KOLUMN DLA "MOJE POSTACIE" --- */
+.gallery.two-columns {
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 15px !important;
+}
+
+.gallery.two-columns .gallery-item {
+  width: 100%;
+  height: auto;
+  aspect-ratio: unset;
+}
+
+.gallery.two-columns .gallery-item img,
+.gallery.two-columns .gallery-item video {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
 </style>
 
 <script>
@@ -1023,3 +1072,4 @@ document.getElementById("closeContact").addEventListener("click", () => {
 </body>
 
 </html>
+
