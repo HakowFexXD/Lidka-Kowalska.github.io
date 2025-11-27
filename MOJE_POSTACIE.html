@@ -302,14 +302,6 @@
     </div>
   </div>
 
-  <div id="galleryOverlay">
-  <div id="galleryContent">
-    <div class="arrow arrow-left" onclick="prevImage()">‹</div>
-    <img id="galleryImg" class="galleryImage">
-    <div class="arrow arrow-right" onclick="nextImage()">›</div>
-  </div>
-</div>
-
 <script>
 /* tworzymy tło kwadratów jak na 1 stronie */
 (function makeBackgroundSquares(){
@@ -498,32 +490,8 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-/* Inicjalnie - nic nie pokazujemy; możesz opcjonalnie otworzyć jedną sekcję na start */
-// populateGallery(galleryMain, characters.main);
-  let currentIndex = 0;
-let currentArray = [];
-
-function openGallery(arr, index) {
-  currentArray = arr;
-  currentIndex = index;
-  document.getElementById("galleryOverlay").style.display = "flex";
-  document.getElementById("galleryImg").src = arr[index];
-}
-
-function closeGallery() {
-  document.getElementById("galleryOverlay").style.display = "none";
-}
-
-function nextImage() {
-  currentIndex = (currentIndex + 1) % currentArray.length;
-  document.getElementById("galleryImg").src = currentArray[currentIndex];
-}
-
-function prevImage() {
-  currentIndex = (currentIndex - 1 + currentArray.length) % currentArray.length;
-  document.getElementById("galleryImg").src = currentArray[currentIndex];
-}
 </script>
 </body>
 </html>
+
 
