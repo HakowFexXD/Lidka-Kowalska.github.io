@@ -427,6 +427,40 @@
     footer a:hover {
       color: white;
     }
+    /* Neonowy nagłówek "DLA CIEKAWSKICH" */
+.neon-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 22px;
+  color: #00ff00;
+  text-align: center;
+  margin-top: 60px;
+  margin-bottom: 10px;
+  text-shadow:
+    0 0 10px #00ff00,
+    0 0 20px #00ff00,
+    0 0 30px #00ff00;
+}
+
+/* Sekcja MOJE POSTACIE */
+.characters-section {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.characters-box {
+  display: inline-block;
+  border: 3px solid #00ff00;
+  padding: 20px 30px;
+  border-radius: 15px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 16px;
+}
+
+.characters-box:hover {
+  box-shadow: 0 0 20px #00ff00;
+}
   </style>
 </head>
 <body>
@@ -475,6 +509,13 @@
   <h2 style="color:#f; font-size:20px; font-family:'Press Start 2P', monospace; text-align:center; margin-bottom:15px;">
     POZOSTAŁE INNE PROJEKTY/GRAFIKI:
   </h2>
+  <h2 class="neon-title">DLA CIEKAWSKICH</h2>
+
+<div class="characters-section">
+  <div class="characters-box" onclick="window.location.href='postacie.html'">
+    MOJE POSTACIE
+  </div>
+</div>
   <div class="carousel-wrapper">
     <button class="carousel-btn left">&lt;</button>
     <div class="carousel">
@@ -1023,4 +1064,5 @@ document.getElementById("closeContact").addEventListener("click", () => {
 </body>
 
 </html>
+
 
