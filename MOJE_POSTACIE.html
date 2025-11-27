@@ -1,182 +1,283 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MOJE POSTACIE – Hakow Fex</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>MOJE POSTACIE — Hakow Fex</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
 <style>
-body {
-  margin: 0;
-  padding: 0;
-  background: black;
-  color: white;
-  font-family: 'Press Start 2P', monospace;
-  overflow-x: hidden;
-}
+  /* OGÓLNE */
+  :root {
+    --neon: #00ff00;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    background: black;
+    color: white;
+    font-family: 'Press Start 2P', monospace;
+    overflow-x: hidden;
+  }
 
-/* TŁO – takie samo jak na 1 stronie */
-#background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  overflow: hidden;
-}
-.square {
-  position: absolute;
-  background: #00ff00;
-  opacity: 0.3;
-  width: 6px;
-  height: 6px;
-  animation: float 10s infinite alternate ease-in-out;
-}
-@keyframes float {
-  from { transform: translate(0, 0); }
-  to { transform: translate(50px, -50px); }
-}
+  /* TŁO (jak na 1 stronie) */
+  #background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* ważne - tło pod spód */
+    overflow: hidden;
+  }
+  .square {
+    position: absolute;
+    background: var(--neon);
+    opacity: 0.28;
+    width: 6px;
+    height: 6px;
+    animation: float 10s infinite alternate ease-in-out;
+    filter: drop-shadow(0 0 6px var(--neon));
+  }
+  @keyframes float {
+    from { transform: translate(0, 0); }
+    to { transform: translate(50px, -50px); }
+  }
 
-.container {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  padding: 40px 20px;
-}
-
-/* Neonowy tytuł */
-.neon-title {
-  font-size: 22px;
-  color: #00ff00;
-  text-shadow:
-    0 0 4px #00ff00,
-    0 0 8px #00ff00,
-  margin-bottom: 10px;
-}
-
-/* Sekcje wybierające */
-.sections {
-  display: flex;
-  justify-content: center;
-  gap: 25px;
-  margin-top: 40px;
-  flex-wrap: wrap;
-}
-
-.section-btn {
-  border: 3px solid #00ff00;
-  padding: 20px;
-  border-radius: 15px;
-  font-size: 12px;
-  width: 220px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.section-btn:hover {
-  box-shadow: 0 0 20px #00ff00;
-}
-
-/* Galeria */
-.gallery {
-  margin-top: 40px;
-  display: none;
-  grid-template-columns: repeat(4, 180px);
-  gap: 15px;
-  justify-content: center;
-}
-
-.gallery-item {
-  width: 180px;
-  height: 180px;
-  border: 3px solid #00ff00;
-  border-radius: 14px;
-  overflow: hidden;
-  cursor: pointer;
-  background: #111;
-}
-.gallery-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* BACK BUTTON */
-.back-btn {
-  margin-top: 60px;
-  background: #00ff00;
-  color: black;
-  padding: 20px;
-  border-radius: 15px;
-  font-size: 14px;
-  cursor: pointer;
-  border: none;
-  box-shadow: 0 0 15px #00ff00;
-  font-family: 'Press Start 2P', monospace; /* ← PIXELOWY FONT */
-  letter-spacing: 1px; /* ładniejszy pixel look */
-}
-.back-btn:hover {
-  background: white;
-}
+  /* KONTAINER - musi być ponad tłem */
   .container {
-  position: relative;
-  z-index: 1000 !important;
-}
-.section-btn {
-  position: relative;
-  z-index: 1100 !important;
-}
+    position: relative;
+    z-index: 1000 !important; /* na wierzchu */
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  /* NEON TITLE (słabszy glow) */
+  .neon-title {
+    font-size: 22px;
+    color: var(--neon);
+    text-shadow:
+      0 0 4px var(--neon),
+      0 0 8px var(--neon);
+    margin: 0 0 6px 0;
+  }
+
+  h2.subtitle {
+    font-size: 12px;
+    color: var(--neon);
+    margin-top: 6px;
+    margin-bottom: 24px;
+  }
+
+  /* SEKCJE WYBORU */
+  .sections {
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .section-btn {
+    border: 3px solid var(--neon);
+    padding: 18px;
+    border-radius: 14px;
+    font-size: 12px;
+    width: 220px;
+    cursor: pointer;
+    transition: 0.25s;
+    background: rgba(0,0,0,0.45);
+    position: relative;
+    z-index: 1100 !important;
+  }
+  .section-btn:hover {
+    box-shadow: 0 0 18px var(--neon);
+    transform: translateY(-3px);
+  }
+
+  /* GALERIA - domyślnie ukryta, pokazujemy gridem */
+  .gallery {
+    margin: 30px auto 10px auto;
+    display: none; /* ustawiamy display:grid dopiero gdy otwarte */
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 14px;
+    justify-items: center;
+    max-width: 1100px;
+    z-index: 1050;
+  }
+
+  .gallery.show {
+    display: grid;
+  }
+
+  .gallery-item {
+    width: 180px;
+    height: 180px;
+    border: 3px solid var(--neon);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #111;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s;
+  }
+  .gallery-item img, .gallery-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .gallery-item:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 12px var(--neon);
+  }
+
+  /* BACK button - pixel font */
+  .back-btn {
+    margin-top: 28px;
+    background: var(--neon);
+    color: black;
+    padding: 18px 26px;
+    border-radius: 12px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 15px var(--neon);
+    font-family: 'Press Start 2P', monospace;
+    letter-spacing: 1px;
+    z-index: 1200;
+  }
+  .back-btn:hover {
+    background: white;
+  }
+
+  /* LIGHTBOX (kopiowane zachowanie z 1. strony) */
+  .lightbox {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.88);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+  }
+  .lightbox-content {
+    position: relative;
+    max-width: 90%;
+    text-align: center;
+  }
+  .close-btn {
+    background: var(--neon);
+    border: none;
+    color: black;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 12px;
+    padding: 12px 14px;
+    cursor: pointer;
+    border-radius: 12px;
+    box-shadow: 0 0 16px var(--neon);
+    margin-bottom: 12px;
+  }
+  .close-btn:hover { background: white; }
+
+  #lightboxImage,
+  #lightboxVideo {
+    max-width: 90%;
+    max-height: 80vh;
+    border: 4px solid var(--neon);
+    border-radius: 12px;
+    object-fit: contain;
+    background: black;
+  }
+
+  #imageName {
+    color: var(--neon);
+    margin-top: 14px;
+    font-size: 12px;
+  }
+
+  /* PRZYCISKI NA BOKACH (prev/next) */
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2100;
+  }
+  .nav-left { left: 20px; }
+  .nav-right { right: 20px; }
+
+  /* responsywność */
+  @media (max-width: 700px) {
+    .section-btn { width: 100%; max-width: 380px; }
+    .gallery-item { width: 140px; height: 140px; }
+  }
 </style>
 </head>
-
 <body>
 
-<div id="background"></div>
+  <!-- TŁO -->
+  <div id="background"></div>
 
-<script>
-const bg = document.getElementById("background");
-for (let i = 0; i < 40; i++) {
-  const sq = document.createElement("div");
-  sq.classList.add("square");
-  sq.style.top = Math.random() * 100 + "%";
-  sq.style.left = Math.random() * 100 + "%";
-  sq.style.animationDuration = 5 + Math.random() * 10 + "s";
-  sq.style.width = sq.style.height = 2 + Math.random() * 6 + "px";
-  bg.appendChild(sq);
-}
-</script>
+  <div class="container">
+    <h1 class="neon-title">DLA CIEKAWSKICH</h1>
+    <h2 class="subtitle">MOJE POSTACIE</h2>
 
-<div class="container">
+    <!-- WYBÓR SEKCJI -->
+    <div class="sections">
+      <div class="section-btn" data-type="doodles">DOODLES / BAZGROŁY</div>
+      <div class="section-btn" data-type="main">MAIN / GŁÓWNE</div>
+      <div class="section-btn" data-type="random">RANDOM / RANDOMOWE</div>
+    </div>
 
-  <h1 class="neon-title">DLA CIEKAWSKICH</h1>
-  <h2 style="font-size:18px; color:#00ff00;">MOJE POSTACIE</h2>
+    <!-- GALERIE (puste, wypełni JS) -->
+    <div id="gallery-doodles" class="gallery"></div>
+    <div id="gallery-main" class="gallery"></div>
+    <div id="gallery-random" class="gallery"></div>
 
-  <!-- TRZY SEKCJE -->
-  <div class="sections">
-    <div class="section-btn" onclick="openGallery('doodles')">DOODLES / BAZGROŁY</div>
-    <div class="section-btn" onclick="openGallery('main')">MAIN / GŁÓWNE</div>
-    <div class="section-btn" onclick="openGallery('random')">RANDOM / RANDOMOWE</div>
+    <button class="back-btn" onclick="window.location.href='index.html'">WRÓĆ / BACK</button>
   </div>
 
-  <!-- GALERIE -->
-  <div id="gallery-doodles" class="gallery"></div>
-  <div id="gallery-main" class="gallery"></div>
-  <div id="gallery-random" class="gallery"></div>
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <button id="closeLightbox" class="close-btn">ZAMKNIJ ✖</button>
 
-  <!-- POWRÓT -->
-  <button class="back-btn" onclick="window.location.href='index.html'">WRÓĆ / BACK</button>
-
-</div>
+    <div class="lightbox-content" id="lightboxContent">
+      <button class="close-btn lightbox-nav nav-left" id="prevBtn">◀</button>
+      <img id="lightboxImage" src="" alt="" style="display:none;">
+      <video id="lightboxVideo" controls style="display:none;"></video>
+      <button class="close-btn lightbox-nav nav-right" id="nextBtn">▶</button>
+      <p id="imageName"></p>
+    </div>
+  </div>
 
 <script>
-/* TU WPISUJESZ SWOJE PLIKI OBRAZKÓW */
+/* tworzymy tło kwadratów jak na 1 stronie */
+(function makeBackgroundSquares(){
+  const bg = document.getElementById('background');
+  for (let i = 0; i < 40; i++) {
+    const sq = document.createElement('div');
+    sq.className = 'square';
+    sq.style.top = Math.random() * 100 + '%';
+    sq.style.left = Math.random() * 100 + '%';
+    sq.style.animationDuration = 5 + Math.random() * 10 + 's';
+    const size = 2 + Math.random() * 6;
+    sq.style.width = sq.style.height = size + 'px';
+    bg.appendChild(sq);
+  }
+})();
+
+/* DANE - zamień ścieżki na swoje pliki */
 const characters = {
   doodles: [
     { file: "characters/doodle1.png", name: "Bazgroł 1" },
-    { file: "characters/doodle2.png", name: "Bazgroł 2" }
+    { file: "characters/doodle2.png", name: "Bazgroł 2" },
+    { file: "characters/doodle3.png", name: "Bazgroł 3" }
   ],
   main: [
     { file: "works/zen.png", name: "Zen Itu" },
@@ -185,34 +286,166 @@ const characters = {
   { file: "works/jakeanddave.png", name: "Jake & Dave" }
   ],
   random: [
-    { file: "characters/random1.png", name: "Losowy projekt 1" }
+    { file: "characters/random1.png", name: "Random 1" },
+    { file: "characters/random2.mov", name: "Random animacja - mov" }
   ]
 };
 
-function openGallery(type) {
-  document.getElementById("gallery-doodles").style.display = "none";
-  document.getElementById("gallery-main").style.display = "none";
-  document.getElementById("gallery-random").style.display = "none";
+/* Referencje DOM */
+const sectionBtns = document.querySelectorAll('.section-btn');
+const galleryDoodles = document.getElementById('gallery-doodles');
+const galleryMain = document.getElementById('gallery-main');
+const galleryRandom = document.getElementById('gallery-random');
 
-  const gallery = document.getElementById("gallery-" + type);
-  gallery.style.display = "grid";
-  gallery.innerHTML = "";
+const lightbox = document.getElementById('lightbox');
+const lightboxImage = document.getElementById('lightboxImage');
+const lightboxVideo = document.getElementById('lightboxVideo');
+const imageName = document.getElementById('imageName');
+const closeLightbox = document.getElementById('closeLightbox');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
 
-  characters[type].forEach(item => {
-    const div = document.createElement("div");
-    div.classList.add("gallery-item");
-    const img = document.createElement("img");
-    img.src = item.file;
-    div.appendChild(img);
-    gallery.appendChild(div);
+let currentGallery = [];
+let currentIndex = 0;
+
+/* Funkcja do tworzenia miniatur w elemencie galerii */
+function populateGallery(containerEl, items) {
+  containerEl.innerHTML = '';
+  items.forEach((it, idx) => {
+    const div = document.createElement('div');
+    div.className = 'gallery-item';
+    div.setAttribute('data-idx', idx);
+
+    if (it.file.endsWith('.mp4') || it.file.endsWith('.mov') || it.file.endsWith('.webm')) {
+      const vid = document.createElement('video');
+      vid.src = it.file;
+      vid.muted = true;
+      vid.loop = true;
+      vid.autoplay = true;
+      vid.playsInline = true;
+      div.appendChild(vid);
+    } else {
+      const img = document.createElement('img');
+      img.src = it.file;
+      img.alt = it.name || '';
+      div.appendChild(img);
+    }
+
+    // kliknięcie miniatury -> otwórz lightbox
+    div.addEventListener('click', (e) => {
+      openLightbox(items, parseInt(div.dataset.idx, 10));
+    });
+
+    containerEl.appendChild(div);
   });
 }
-</script>
 
+/* Obsługa przycisków sekcji */
+sectionBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    // ukryj wszystkie galerie
+    [galleryDoodles, galleryMain, galleryRandom].forEach(g => g.classList.remove('show'));
+
+    const type = btn.dataset.type;
+    // wybieramy odpowiedni kontener
+    let container = galleryDoodles;
+    if (type === 'main') container = galleryMain;
+    if (type === 'random') container = galleryRandom;
+
+    // jeżeli jeszcze nie wypełnione - wypełniamy
+    if (container.children.length === 0) {
+      const items = characters[type] || [];
+      populateGallery(container, items);
+    }
+
+    // pokaż wybraną galerię
+    container.classList.add('show');
+
+    // scroll do galerii (opcjonalne)
+    container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+});
+
+/* LIGHTBOX: otwieranie z danej galerii i indeksu */
+function openLightbox(galleryArray, startIndex = 0) {
+  currentGallery = galleryArray;
+  currentIndex = startIndex;
+
+  const item = currentGallery[currentIndex];
+  if (!item) return;
+
+  imageName.textContent = item.name || '';
+
+  if (item.file.endsWith('.mp4') || item.file.endsWith('.mov') || item.file.endsWith('.webm')) {
+    lightboxImage.style.display = 'none';
+    lightboxVideo.style.display = 'block';
+    lightboxVideo.src = item.file;
+    lightboxVideo.currentTime = 0;
+    lightboxVideo.play().catch(()=>{/* autoplay may be blocked; user can press play */});
+  } else {
+    lightboxVideo.pause();
+    lightboxVideo.style.display = 'none';
+    lightboxImage.style.display = 'block';
+    lightboxImage.src = item.file;
+  }
+
+  lightbox.style.display = 'flex';
+  lightbox.setAttribute('aria-hidden', 'false');
+}
+
+/* show next / prev */
+function showPrevNext(dir) {
+  if (!currentGallery || currentGallery.length === 0) return;
+  currentIndex += dir;
+  if (currentIndex < 0) currentIndex = currentGallery.length - 1;
+  if (currentIndex >= currentGallery.length) currentIndex = 0;
+  const item = currentGallery[currentIndex];
+
+  imageName.textContent = item.name || '';
+  if (item.file.endsWith('.mp4') || item.file.endsWith('.mov') || item.file.endsWith('.webm')) {
+    lightboxImage.style.display = 'none';
+    lightboxVideo.style.display = 'block';
+    lightboxVideo.src = item.file;
+    lightboxVideo.currentTime = 0;
+    lightboxVideo.play().catch(()=>{});
+  } else {
+    lightboxVideo.pause();
+    lightboxVideo.style.display = 'none';
+    lightboxImage.style.display = 'block';
+    lightboxImage.src = item.file;
+  }
+}
+
+/* Zamykanie */
+function closeLB() {
+  lightbox.style.display = 'none';
+  lightbox.setAttribute('aria-hidden', 'true');
+  lightboxVideo.pause();
+  lightboxVideo.src = '';
+  lightboxImage.src = '';
+}
+
+/* Event listeners lightbox */
+closeLightbox.addEventListener('click', closeLB);
+prevBtn.addEventListener('click', () => showPrevNext(-1));
+nextBtn.addEventListener('click', () => showPrevNext(1));
+
+/* zamykaj klikając tło (ale nie klik na content) */
+lightbox.addEventListener('click', (e) => {
+  if (e.target === lightbox) closeLB();
+});
+
+/* klawisze */
+document.addEventListener('keydown', (e) => {
+  if (lightbox.style.display === 'flex') {
+    if (e.key === 'ArrowRight') showPrevNext(1);
+    if (e.key === 'ArrowLeft') showPrevNext(-1);
+    if (e.key === 'Escape') closeLB();
+  }
+});
+
+/* Inicjalnie - nic nie pokazujemy; możesz opcjonalnie otworzyć jedną sekcję na start */
+// populateGallery(galleryMain, characters.main);
+</script>
 </body>
 </html>
-
-
-
-
-
