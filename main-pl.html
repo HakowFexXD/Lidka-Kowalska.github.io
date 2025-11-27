@@ -1046,17 +1046,7 @@ document.addEventListener("keydown", (e) => {
 }
 
 .gallery.two-columns .gallery-item {
-  width: 100%;
-  height: auto;
-  aspect-ratio: unset;
-}
-/* Większe miniatury w MOJE POSTACIE */
-/* Powiększamy zdjęcia, ALE nie rozpychamy gridu */
-.gallery.two-columns .gallery-item img,
-.gallery.two-columns .gallery-item video {
-  transform: scale(1.70);
-  transform-origin: center;
-}
+  scale: 1.70;
 }
 .gallery.two-columns .gallery-item img,
 .gallery.two-columns .gallery-item video {
@@ -1079,6 +1069,7 @@ document.getElementById("closeContact").addEventListener("click", () => {
 </body>
 
 </html>
+
 
 
 
