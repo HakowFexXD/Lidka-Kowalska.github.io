@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOJE POSTACIE – Hakow Fex</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  background: black;
+  color: white;
+  font-family: 'Press Start 2P', monospace;
+  overflow-x: hidden;
+}
+
+/* TŁO – takie samo jak na 1 stronie */
+#background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+.square {
+  position: absolute;
+  background: #00ff00;
+  opacity: 0.3;
+  width: 6px;
+  height: 6px;
+  animation: float 10s infinite alternate ease-in-out;
+}
+@keyframes float {
+  from { transform: translate(0, 0); }
+  to { transform: translate(50px, -50px); }
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+/* Neonowy tytuł */
+.neon-title {
+  font-size: 22px;
+  color: #00ff00;
+  text-shadow:
+    0 0 10px #00ff00,
+    0 0 20px #00ff00,
+    0 0 30px #00ff00;
+  margin-bottom: 10px;
+}
+
+/* Sekcje wybierające */
+.sections {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.section-btn {
+  border: 3px solid #00ff00;
+  padding: 20px;
+  border-radius: 15px;
+  font-size: 12px;
+  width: 220px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.section-btn:hover {
+  box-shadow: 0 0 20px #00ff00;
+}
+
+/* Galeria */
+.gallery {
+  margin-top: 40px;
+  display: none;
+  grid-template-columns: repeat(4, 180px);
+  gap: 15px;
+  justify-content: center;
+}
+
+.gallery-item {
+  width: 180px;
+  height: 180px;
+  border: 3px solid #00ff00;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #111;
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* BACK BUTTON */
+.back-btn {
+  margin-top: 60px;
+  background: #00ff00;
+  color: black;
+  padding: 20px;
+  border-radius: 15px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 15px #00ff00;
+}
+.back-btn:hover {
+  background: white;
+}
+</style>
+</head>
+
+<body>
+
+<div id="background"></div>
+
+<script>
+const bg = document.getElementById("background");
+for (let i = 0; i < 40; i++) {
+  const sq = document.createElement("div");
+  sq.classList.add("square");
+  sq.style.top = Math.random() * 100 + "%";
+  sq.style.left = Math.random() * 100 + "%";
+  sq.style.animationDuration = 5 + Math.random() * 10 + "s";
+  sq.style.width = sq.style.height = 2 + Math.random() * 6 + "px";
+  bg.appendChild(sq);
+}
+</script>
+
+<div class="container">
+
+  <h1 class="neon-title">DLA CIEKAWSKICH</h1>
+  <h2 style="font-size:18px; color:#00ff00;">MOJE POSTACIE</h2>
+
+  <!-- TRZY SEKCJE -->
+  <div class="sections">
+    <div class="section-btn" onclick="openGallery('doodles')">DOODLES / BAZGROŁY</div>
+    <div class="section-btn" onclick="openGallery('main')">MAIN / GŁÓWNE</div>
+    <div class="section-btn" onclick="openGallery('random')">RANDOM / RANDOMOWE</div>
+  </div>
+
+  <!-- GALERIE -->
+  <div id="gallery-doodles" class="gallery"></div>
+  <div id="gallery-main" class="gallery"></div>
+  <div id="gallery-random" class="gallery"></div>
+
+  <!-- POWRÓT -->
+  <button class="back-btn" onclick="window.location.href='index.html'">WRÓĆ / BACK</button>
+
+</div>
+
+<script>
+/* TU WPISUJESZ SWOJE PLIKI OBRAZKÓW */
+const characters = {
+  doodles: [
+    { file: "characters/doodle1.png", name: "Bazgroł 1" },
+    { file: "characters/doodle2.png", name: "Bazgroł 2" }
+  ],
+  main: [
+    { file: "characters/main1.png", name: "Postać główna 1" },
+    { file: "characters/main2.png", name: "Postać główna 2" }
+  ],
+  random: [
+    { file: "characters/random1.png", name: "Losowy projekt 1" }
+  ]
+};
+
+function openGallery(type) {
+  document.getElementById("gallery-doodles").style.display = "none";
+  document.getElementById("gallery-main").style.display = "none";
+  document.getElementById("gallery-random").style.display = "none";
+
+  const gallery = document.getElementById("gallery-" + type);
+  gallery.style.display = "grid";
+  gallery.innerHTML = "";
+
+  characters[type].forEach(item => {
+    const div = document.createElement("div");
+    div.classList.add("gallery-item");
+    const img = document.createElement("img");
+    img.src = item.file;
+    div.appendChild(img);
+    gallery.appendChild(div);
+  });
+}
+</script>
+
+</body>
+</html>
