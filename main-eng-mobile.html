@@ -427,6 +427,187 @@
     footer a:hover {
       color: white;
     }
+    /* Neonowy nagłówek "DLA CIEKAWSKICH" */
+.neon-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 22px;
+  color: #00ff00;
+  text-align: center;
+  margin-top: 60px;
+  margin-bottom: 10px;
+  text-shadow:
+    0 0 4px #00ff00,
+    0 0 8px #00ff00,
+}
+
+/* Sekcja MOJE POSTACIE */
+.characters-section {
+  text-align: center;
+  margin-top: 40px; /* było mało – teraz duży odstęp */
+  margin-bottom: 40px; /* dodajemy odstęp w dół */
+}
+
+.characters-box {
+  display: inline-block;
+  border: 3px solid #00ff00;
+  padding: 20px 30px;
+  border-radius: 15px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 16px;
+}
+
+.characters-box:hover {
+  box-shadow: 0 0 20px #00ff00;
+}
+    /* ================================
+   ===  RESPONSYWNOŚĆ MOBILNA  ===
+   ================================ */
+
+@media (max-width: 900px) {
+
+  /* ogólne zmniejszenie przestrzeni */
+  .container {
+    padding: 20px 10px;
+  }
+
+  .profile {
+    width: 150px;
+    height: 150px;
+  }
+
+  .about h1 {
+    font-size: 14px;
+  }
+
+  .about p {
+    font-size: 16px;
+  }
+
+  /* sekcje */
+  .sections {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .section {
+    width: 100%;
+    max-width: 260px;
+    font-size: 14px;
+    padding: 15px;
+  }
+
+  /* galeria — zmiana układu na 2 kolumny */
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 0 10px;
+  }
+
+  .gallery-item {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  /* karuzela — mniejsze elementy */
+  .carousel-item {
+    width: 120px;
+    height: 120px;
+  }
+
+  .carousel-btn {
+    font-size: 16px;
+    padding: 6px 10px;
+  }
+
+  /* sekcja MOJE POSTACIE */
+  .characters-box {
+    font-size: 14px;
+    padding: 15px 20px;
+  }
+
+  /* PROGRAMY – automatyczna siatka */
+  .programs-frame {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .programs-grid {
+    gap: 15px;
+  }
+
+  .program {
+    width: 90px;
+  }
+
+  .program img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .program p {
+    font-size: 7px;
+  }
+
+  /* lightbox: przeskalowanie przycisków */
+  .close-btn {
+    font-size: 12px;
+    padding: 10px 14px;
+  }
+
+  #lightboxImage,
+  #lightboxVideo {
+    max-height: 65vh;
+  }
+
+  /* strzałki lightboxa */
+  .close-btn {
+    font-size: 12px;
+  }
+  .lightbox button {
+    padding: 8px 12px;
+  }
+
+  /* pionowe trójkąty po bokach — wyłącz na telefonie */
+  #sidePixelsLeft,
+  #sidePixelsRight {
+    display: none;
+  }
+}
+
+/* Jeszcze mniejsze ekrany (stare iPhone SE itd.) */
+@media (max-width: 480px) {
+
+  .profile {
+    width: 130px;
+    height: 130px;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .carousel-item {
+    width: 100px;
+    height: 100px;
+  }
+
+  footer a {
+    font-size: 16px;
+  }
+
+  .contact-button {
+    font-size: 12px;
+    padding: 12px 18px;
+  }
+
+  .contact-content {
+    width: 90%;
+    padding: 20px;
+  }
+}
   </style>
 </head>
 <body>
@@ -442,21 +623,16 @@
 <!-- NOWA SEKCJA: O MNIE Z RAMKĄ -->
 <div class="about-wrapper">
   <section class="about">
-    <h1>ABOUT ME</h1>
+    <h1>O MNIE</h1>
     <p>
-      Hey there! My name’s Lidka Kowalska, aka “Hakow Fex” or “Xofer”.  
-        I’m an artist and graphic designer — I create 2D animations, illustrations, and digital art.  
-        I also design small merch like pins, stickers, and keychains.  
-        I’m currently studying at the Technical School of Graphic and Digital Printing in Warsaw,  
-        and I live in Grudziądz on weekends.
-    </p>
+     Hello! My name is Lidka Kowalska, aka "Hakow Fex" or "Xofer." I'm an artist and graphic designer. I create 2D animations, graphics, and drawings. I can also design consumer items like badges, stickers, and keychains. I'm a student at the Graphics and Digital Printing Technical School in Warsaw, and I live in Grudziądz on the weekends.    </p>
   </section>
 </div>
 <div class="sections-wrapper">
   <div class="sections">
-    <div class="section" data-section="GRAPHIC">GRAPHIC</div>
-      <div class="section" data-section="DRAWING">DRAWING</div>
-      <div class="section" data-section="2D ANIMATION">2D ANIMATION</div>
+    <div class="section" data-section="GRAFIKA">GRAPHIC</div>
+      <div class="section" data-section="RYSUNEK">ART</div>
+      <div class="section" data-section="ANIMACJE 2D">ANIMATION 2D</div>
   </div>
 
   <div id="gallery" class="gallery"></div>
@@ -477,8 +653,15 @@
 <!-- KARUZELA WSZYSTKICH PROJEKTÓW -->
 <section class="all-projects-section">
   <h2 style="color:#f; font-size:20px; font-family:'Press Start 2P', monospace; text-align:center; margin-bottom:15px;">
-    OTHER PROJECTS / GRAPHICS:
+    OTHER PROJECTS/GRAPHICS:
   </h2>
+  <h2 class="neon-title">FOR CURIOUS PEOPLE</h2>
+
+<div class="characters-section">
+  <div class="characters-box" onclick="window.location.href='MOJE_POSTACIE.html'">
+    MY CHARACTERS
+  </div>
+</div>
   <div class="carousel-wrapper">
     <button class="carousel-btn left">&lt;</button>
     <div class="carousel">
@@ -528,11 +711,11 @@
   </div>
 </div>
       
-  <a href="https://hakowfex.carrd.co" target="_blank">MY LINKS</a>
+  <a href="https://hakowfex.carrd.co" target="_blank">MOJE LINKI</a>
   <br><br>
 
   <!-- PRZYCISK KONTAKT -->
-  <button id="contactBtn" class="contact-button">CONTACT</button>
+  <button id="contactBtn" class="contact-button">KONTAKT</button>
 </footer>
 
 <!-- OKIENKO KONTAKTU -->
@@ -588,31 +771,31 @@ window.addEventListener("resize", () => {
 
     // GALERIA
 const works = {
-  "GRAPHIC": [
-    { file: "works/dzuma.png", name: "The Plague" },
-    { file: "works/zaproszenie.png", name: "Invitation (test)" },
-    { file: "works/style.png", name: "Styles" },
-    { file: "works/deer.png", name: "Deer Skull" },
-    { file: "works/neon.png", name: "Cyberpunk Wolf" },
-    { file: "works/dr.png", name: "Dragon Logo" },
-    { file: "works/logo.png", name: "Band Logo" },
-    { file: "works/steampunk.png", name: "Steampunk Shark" },
-    { file: "works/steampunkowl.png", name: "Steampunk Owl" },
-    { file: "works/sztuka.png", name: "Griffin" }
+ "GRAPHIC": [
+    { file: "works/dzuma.png", name: "Plague" },
+    { file: "works/zaproszenie.png", name: "Invite (test)" },
+    { file: "works/style.png", name: "Style" },
+    { file: "works/deer.png", name: "Deer's skull" },
+    { file: "works/neon.png", name: "Cyberpunk wolf" },
+    { file: "works/dr.png", name: "Logo dragon" },
+    { file: "works/logo.png", name: "Logo band" },
+    { file: "works/steampunk.png", name: "Stempunk shark" },
+    { file: "works/steampunkowl.png", name: "Steampunk owl" },
+   { file: "works/sztuka.png", name: "Griffin" }
   ],
-  "DRAWING": [
+  "ART": [
     { file: "works/wilk.png", name: "Wolf" },
-    { file: "works/wilkz.png", name: "Crystal Wolf" },
+    { file: "works/wilkz.png", name: "Wolf with crystals" },
     { file: "works/gory.png", name: "Mountains" },
     { file: "works/chiny.png", name: "China" },
-    { file: "works/slomce.png", name: "Sun Orb" },
-    { file: "works/Nimfa.png", name: "Nymph" },
-    { file: "works/obraz_2025-10-20_184556781.png", name: "Raven" },
-    { file: "works/lion.png", name: "Fantasy Lion" },
-    { file: "works/maja1.jpeg", name: "Friend staring at her own painting" },
+    { file: "works/slomce.png", name: "Sun orb" },
+    { file: "works/Nimfa.png", name: "Cockatiel" },
+   { file: "works/obraz_2025-10-20_184556781.png", name: "Crow" },
+    { file: "works/lion.png", name: "Lew z fantastyki" },
+    { file: "works/maja1.jpeg", name: "Friend stares at her art"},
     { file: "works/maja2.jpeg", name: "Friend drawing under desk" }
   ],
-  "2D ANIMATION": [
+  "ANIMATION 2D": [
     { file: "works/wolffff.gif", name: "Wolf" },
     { file: "works/testdance.gif", name: "Dance (test)" },
     { file: "works/kula.gif", name: "Orb" }
@@ -687,13 +870,13 @@ function openLightbox(item) {
 // wszystkie projekty bez gif/mp4
 
 const allProjects = [
-  { file: "works/Soter (1).gif", name: "Soter (my character)" },
+   { file: "works/Soter (1).gif", name: "Soter (my character)" },
   { file: "works/postacie1.png", name: "Characters from 'Undertale' and 'FNAF'" },
   { file: "works/postacie2.png", name: "Characters from 'Cookie Run: Kingdom'" },
-  { file: "works/postac.gif", name: "Character test from 'Fundamental Paper Education'" },
+  { file: "works/postac.gif", name: "Test character from 'Fundamental Paper Education'" },
   { file: "works/my_two_sides.png", name: "My character 'Two Sides'" },
-  { file: "works/mem.mov", name: "Trendy TikTok animation" },
-  { file: "works/japanr2.png", name: "Unfinished Japanese building project" }
+  { file: "works/mem.mov", name: "Popular animation trend from tik tok" },
+  { file: "works/japanr2.png", name: "Not finished project of japanese building" }
 ];
 
 const carousel = document.querySelector(".carousel");
@@ -882,7 +1065,7 @@ document.addEventListener("keydown", (e) => {
     <p>- NR TEL: 577 981 140</p>
     <p>- MAIL: lidka.08k@gmail.com</p>
     <p>- FACEBOOK: Hakow Fex or Lidka Kowalska</p>
-    <button id="closeContact" class="close-contact">ZAMKNIJ</button>
+    <button id="closeContact" class="close-contact">CLOSE</button>
   </div>
 </div>
 
@@ -1013,158 +1196,7 @@ document.addEventListener("keydown", (e) => {
   text-align: center;
   line-height: 1.4;
 }
-/* ====================== */
-/* 🔹 WERSJA MOBILNA 🔹 */
-/* ====================== */
-@media (max-width: 768px) {
-
-  body {
-    font-size: 10px;
-    overflow-x: hidden;
-  }
-
-  .container {
-    padding: 20px 10px;
-  }
-
-  .profile {
-    width: 120px;
-    height: 120px;
-    margin-bottom: 20px;
-  }
-
-  .about h1 {
-    font-size: 12px;
-  }
-
-  .about p {
-    font-size: 12px;
-    line-height: 1.5em;
-  }
-
-  /* Sekcje */
-  .sections {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .section {
-    width: 80%;
-    font-size: 10px;
-    padding: 12px;
-  }
-
-  /* Galeria */
-  .gallery {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
-    margin: 20px auto;
-  }
-
-  .gallery-item {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1 / 1;
-  }
-
-  /* Lightbox */
-  .lightbox-content {
-    max-width: 95%;
-  }
-
-  .close-btn {
-    font-size: 10px;
-    padding: 10px 15px;
-  }
-
-  #imageName {
-    font-size: 10px;
-  }
-
-  /* Karuzela projektów */
-  .carousel-wrapper {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .carousel {
-    overflow-x: scroll;
-    gap: 6px;
-    width: 100%;
-  }
-
-  .carousel-item {
-    width: 120px;
-    height: 120px;
-  }
-
-  .carousel-btn {
-    font-size: 12px;
-    padding: 6px 10px;
-    margin: 8px 0;
-  }
-
-  /* Programy */
-  .programs-frame {
-    padding: 10px;
-    max-width: 90%;
-  }
-
-  .programs-grid {
-    gap: 10px;
-  }
-
-  .program {
-    width: 80px;
-  }
-
-  .program img {
-    width: 40px;
-    height: 40px;
-  }
-
-  .program p {
-    font-size: 7px;
-  }
-
-  /* Trójkąty i piksele — mniej intensywne na mobile */
-  #triangle-top,
-  #triangle-bottom {
-    display: none;
-  }
-
-  .side-pixels {
-    display: none;
-  }
-
-  /* Stopka */
-  footer a {
-    display: block;
-    margin: 8px 0;
-    font-size: 12px;
-  }
-
-  .contact-button {
-    font-size: 10px;
-    padding: 10px 16px;
-  }
-
-  /* Okno kontaktu */
-  .contact-content {
-    padding: 20px;
-    font-size: 10px;
-    max-width: 90%;
-  }
-
-  .contact-content h2 {
-    font-size: 12px;
-  }
-
-  .contact-content p {
-    font-size: 10px;
-  }
-}
-  </style>
+</style>
 
 <script>
 // Otwieranie i zamykanie popupu
@@ -1179,15 +1211,4 @@ document.getElementById("closeContact").addEventListener("click", () => {
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
 
