@@ -28,7 +28,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0; /* ważne - tło pod spód */
+    z-index: 0;
     overflow: hidden;
   }
   .square {
@@ -45,15 +45,15 @@
     to { transform: translate(50px, -50px); }
   }
 
-  /* KONTAINER - musi być ponad tłem */
+  /* KONTAINER */
   .container {
     position: relative;
-    z-index: 1000 !important; /* na wierzchu */
+    z-index: 1000 !important;
     text-align: center;
     padding: 40px 20px;
   }
 
-  /* NEON TITLE (słabszy glow) */
+  /* NEON TITLE */
   .neon-title {
     font-size: 22px;
     color: var(--neon);
@@ -70,7 +70,7 @@
     margin-bottom: 24px;
   }
 
-  /* SEKCJE WYBORU */
+  /* SEKCJE */
   .sections {
     display: flex;
     justify-content: center;
@@ -95,10 +95,10 @@
     transform: translateY(-3px);
   }
 
-  /* GALERIA - domyślnie ukryta, pokazujemy gridem */
+  /* GALERIA */
   .gallery {
     margin: 30px auto 10px auto;
-    display: none; /* ustawiamy display:grid dopiero gdy otwarte */
+    display: none;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 14px;
     justify-items: center;
@@ -133,7 +133,7 @@
     box-shadow: 0 0 12px var(--neon);
   }
 
-  /* BACK button - pixel font */
+  /* BACK */
   .back-btn {
     margin-top: 28px;
     background: var(--neon);
@@ -152,145 +152,102 @@
     background: white;
   }
 
-.lightbox {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  z-index: 100;
-}
+  /* LIGHTBOX */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 5000;
+  }
 
-.lightbox-content {
-  max-width: 90%;
-  max-height: 90vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  .lightbox-content {
+    max-width: 90%;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
 
-.lightbox-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  padding: 10px 15px;
-  z-index: 150;
-}
+  #lightboxImage,
+  #lightboxVideo {
+    max-width: 80vw;
+    max-height: 75vh;
+    object-fit: contain;
+  }
 
-.lightbox-arrow:nth-child(1) {
-  left: 30px;
-}
+  .close-btn {
+    border: none;
+    background: transparent;
+    color: var(--neon);
+    font-size: 22px;
+    cursor: pointer;
+    text-shadow: 0 0 8px var(--neon);
+    margin-bottom: 10px;
+  }
 
-.lightbox-arrow:nth-child(2) {
-  right: 30px;
-}
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 28px;
+    padding: 10px;
+    cursor: pointer;
+    text-shadow: 0 0 8px var(--neon);
+  }
 
-#lightboxImage,
-#lightboxVideo {
-  max-width: 80vw;
-  max-height: 75vh;
-  object-fit: contain;
-}
+  .nav-left { left: -60px; }
+  .nav-right { right: -60px; }
 
-/* Na malutkich ekranach zmniejszamy odstęp */
-@media (max-width: 600px) {
-  .lightbox-content { gap: 20px; }
-  .lightbox-nav { width: 45px; height: 45px; font-size: 18px; }
-}
-  /* responsywność */
   @media (max-width: 700px) {
     .section-btn { width: 100%; max-width: 380px; }
     .gallery-item { width: 140px; height: 140px; }
   }
-  #galleryOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.85);
-  z-index: 9999;
-  display: none;
-  justify-content: center;
-  align-items: center;
-}
-
-#galleryContent {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.galleryImage {
-  max-width: 90%;
-  max-height: 90%;
-  object-fit: contain;
-  border-radius: 10px;
-  box-shadow: 0 0 15px #00ff00;
-}
-
-.arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-family: 'Press Start 2P', monospace;
-  font-size: 30px;
-  color: #00ff00;
-  cursor: pointer;
-  user-select: none;
-  text-shadow: 0 0 8px #00ff00;
-}
-
-.arrow-left {
-  left: -60px;
-}
-
-.arrow-right {
-  right: -60px;
-}
 </style>
 </head>
 <body>
-  <!-- TŁO -->
-  <div id="background"></div>
 
-  <div class="container">
-    <h1 class="neon-title">DLA CIEKAWSKICH</h1>
-    <h2 class="subtitle">MOJE POSTACIE</h2>
+<!-- TŁO -->
+<div id="background"></div>
 
-    <!-- WYBÓR SEKCJI -->
-    <div class="sections">
-      <div class="section-btn" data-type="doodles">DOODLES / BAZGROŁY</div>
-      <div class="section-btn" data-type="main">MAIN / GŁÓWNE</div>
-      <div class="section-btn" data-type="random">RANDOM / RANDOMOWE</div>
-    </div>
+<div class="container">
+  <h1 class="neon-title">DLA CIEKAWSKICH</h1>
+  <h2 class="subtitle">MOJE POSTACIE</h2>
 
-    <!-- GALERIE (puste, wypełni JS) -->
-    <div id="gallery-doodles" class="gallery"></div>
-    <div id="gallery-main" class="gallery"></div>
-    <div id="gallery-random" class="gallery"></div>
-
-    <button class="back-btn" onclick="window.location.href='index.html'">WRÓĆ / BACK</button>
+  <!-- WYBÓR SEKCJI -->
+  <div class="sections">
+    <div class="section-btn" data-type="doodles">DOODLES / BAZGROŁY</div>
+    <div class="section-btn" data-type="main">MAIN / GŁÓWNE</div>
+    <div class="section-btn" data-type="random">RANDOM / RANDOMOWE</div>
   </div>
 
-  <!-- LIGHTBOX -->
-  <div id="lightbox" class="lightbox" aria-hidden="true">
-    <button id="closeLightbox" class="close-btn">ZAMKNIJ ✖</button>
+  <!-- GALERIE -->
+  <div id="gallery-doodles" class="gallery"></div>
+  <div id="gallery-main" class="gallery"></div>
+  <div id="gallery-random" class="gallery"></div>
 
-    <div class="lightbox-content" id="lightboxContent">
-      <button class="close-btn lightbox-nav nav-left" id="prevBtn">◀</button>
-      <img id="lightboxImage" src="" alt="" style="display:none;">
-      <video id="lightboxVideo" controls style="display:none;"></video>
-      <button class="close-btn lightbox-nav nav-right" id="nextBtn">▶</button>
-      <p id="imageName"></p>
-    </div>
+  <button class="back-btn" onclick="window.location.href='index.html'">WRÓĆ / BACK</button>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox" aria-hidden="true">
+  <button id="closeLightbox" class="close-btn">ZAMKNIJ ✖</button>
+
+  <div class="lightbox-content">
+    <button class="close-btn lightbox-nav nav-left" id="prevBtn">◀</button>
+    <img id="lightboxImage" src="" alt="" style="display:none;">
+    <video id="lightboxVideo" controls style="display:none;"></video>
+    <button class="close-btn lightbox-nav nav-right" id="nextBtn">▶</button>
+    <p id="imageName"></p>
   </div>
+</div>
 
 <script>
-/* tworzymy tło kwadratów jak na 1 stronie */
+/* TŁO */
 (function makeBackgroundSquares(){
   const bg = document.getElementById('background');
   for (let i = 0; i < 40; i++) {
@@ -305,7 +262,7 @@
   }
 })();
 
-/* DANE - zamień ścieżki na swoje pliki */
+/* DANE */
 const characters = {
   doodles: [
     { file: "works/doodle1.png", name: " " },
@@ -313,8 +270,8 @@ const characters = {
     { file: "works/doodle3.png", name: " " },
     { file: "works/doodle4.png", name: " " },
     { file: "works/doodle5.png", name: " " },
-  { file: "works/doodle6.png", name: " " },
-  { file: "works/image0.png", name: " " },
+    { file: "works/doodle6.png", name: " " },
+    { file: "works/image0.png", name: " " },
     { file: "works/image0.png", name: " " },
     { file: "works/image1.png", name: " " },
     { file: "works/image3.png", name: " " },
@@ -325,7 +282,7 @@ const characters = {
     { file: "works/zen.png", name: "Zen Itu" },
     { file: "works/grivetherf.png", name: "Grivet Herf / Xofer" },
     { file: "works/thedoctor.png", name: "The Doctor / Soter" },
-  { file: "works/jakeanddave.png", name: "Jake & Dave" }
+    { file: "works/jakeanddave.png", name: "Jake & Dave" }
   ],
   random: [
     { file: "works/random.png", name: " " },
@@ -338,11 +295,11 @@ const characters = {
     { file: "works/random8.png", name: " " },
     { file: "works/random11.png", name: " " },
     { file: "works/random10.png", name: " " },
-  { file: "works/random9.png", name: " " }
+    { file: "works/random9.png", name: " " }
   ]
 };
 
-/* Referencje DOM */
+/* DOM */
 const sectionBtns = document.querySelectorAll('.section-btn');
 const galleryDoodles = document.getElementById('gallery-doodles');
 const galleryMain = document.getElementById('gallery-main');
@@ -359,7 +316,7 @@ const nextBtn = document.getElementById('nextBtn');
 let currentGallery = [];
 let currentIndex = 0;
 
-/* Funkcja do tworzenia miniatur w elemencie galerii */
+/* TWORZENIE MINIATUREK */
 function populateGallery(containerEl, items) {
   containerEl.innerHTML = '';
   items.forEach((it, idx) => {
@@ -382,42 +339,31 @@ function populateGallery(containerEl, items) {
       div.appendChild(img);
     }
 
-    // kliknięcie miniatury -> otwórz lightbox
-    div.addEventListener('click', (e) => {
-      openLightbox(items, parseInt(div.dataset.idx, 10));
-    });
-
+    div.addEventListener('click', () => openLightbox(items, idx));
     containerEl.appendChild(div);
   });
 }
 
-/* Obsługa przycisków sekcji */
+/* WYSWIETLANIE DANEJ GALERII */
 sectionBtns.forEach(btn => {
   btn.addEventListener('click', () => {
-    // ukryj wszystkie galerie
     [galleryDoodles, galleryMain, galleryRandom].forEach(g => g.classList.remove('show'));
 
     const type = btn.dataset.type;
-    // wybieramy odpowiedni kontener
     let container = galleryDoodles;
     if (type === 'main') container = galleryMain;
     if (type === 'random') container = galleryRandom;
 
-    // jeżeli jeszcze nie wypełnione - wypełniamy
     if (container.children.length === 0) {
-      const items = characters[type] || [];
-      populateGallery(container, items);
+      populateGallery(container, characters[type]);
     }
 
-    // pokaż wybraną galerię
     container.classList.add('show');
-
-    // scroll do galerii (opcjonalne)
     container.scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
 });
 
-/* LIGHTBOX: otwieranie z danej galerii i indeksu */
+/* LIGHTBOX */
 function openLightbox(galleryArray, startIndex = 0) {
   currentGallery = galleryArray;
   currentIndex = startIndex;
@@ -432,7 +378,7 @@ function openLightbox(galleryArray, startIndex = 0) {
     lightboxVideo.style.display = 'block';
     lightboxVideo.src = item.file;
     lightboxVideo.currentTime = 0;
-    lightboxVideo.play().catch(()=>{/* autoplay may be blocked; user can press play */});
+    lightboxVideo.play().catch(()=>{});
   } else {
     lightboxVideo.pause();
     lightboxVideo.style.display = 'none';
@@ -444,15 +390,15 @@ function openLightbox(galleryArray, startIndex = 0) {
   lightbox.setAttribute('aria-hidden', 'false');
 }
 
-/* show next / prev */
+/* STRZAŁKI */
 function showPrevNext(dir) {
-  if (!currentGallery || currentGallery.length === 0) return;
   currentIndex += dir;
   if (currentIndex < 0) currentIndex = currentGallery.length - 1;
   if (currentIndex >= currentGallery.length) currentIndex = 0;
-  const item = currentGallery[currentIndex];
 
+  const item = currentGallery[currentIndex];
   imageName.textContent = item.name || '';
+
   if (item.file.endsWith('.mp4') || item.file.endsWith('.mov') || item.file.endsWith('.webm')) {
     lightboxImage.style.display = 'none';
     lightboxVideo.style.display = 'block';
@@ -467,7 +413,10 @@ function showPrevNext(dir) {
   }
 }
 
-/* Zamykanie */
+prevBtn.addEventListener('click', () => showPrevNext(-1));
+nextBtn.addEventListener('click', () => showPrevNext(1));
+
+/* ZAMYKANIE */
 function closeLB() {
   lightbox.style.display = 'none';
   lightbox.setAttribute('aria-hidden', 'true');
@@ -476,17 +425,13 @@ function closeLB() {
   lightboxImage.src = '';
 }
 
-/* Event listeners lightbox */
 closeLightbox.addEventListener('click', closeLB);
-prevBtn.addEventListener('click', () => showPrevNext(-1));
-nextBtn.addEventListener('click', () => showPrevNext(1));
 
-/* zamykaj klikając tło (ale nie klik na content) */
 lightbox.addEventListener('click', (e) => {
   if (e.target === lightbox) closeLB();
 });
 
-/* klawisze */
+/* KLAWISZE */
 document.addEventListener('keydown', (e) => {
   if (lightbox.style.display === 'flex') {
     if (e.key === 'ArrowRight') showPrevNext(1);
@@ -494,85 +439,7 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeLB();
   }
 });
-
 </script>
-  <script>
-let currentItemIndex = 0;
-let currentGallery = [];
 
-// Jedyna poprawna funkcja lightbox
-function openLightbox(item, galleryArray = allProjects) {
-  currentGallery = galleryArray;
-  currentItemIndex = galleryArray.findIndex(i => i.file === item.file);
-
-  lightbox.style.display = "flex";
-  imageName.textContent = item.name;
-
-  if (item.file.endsWith(".mp4") || item.file.endsWith(".mov")) {
-    lightboxImage.style.display = "none";
-    lightboxVideo.style.display = "block";
-    lightboxVideo.src = item.file;
-    lightboxVideo.play();
-  } else {
-    lightboxVideo.style.display = "none";
-    lightboxImage.style.display = "block";
-    lightboxImage.src = item.file;
-  }
-}
-
-// strzałki przed / następny
-const prevBtn = document.createElement("button");
-prevBtn.textContent = "◀";
-prevBtn.className = "close-btn lightbox-arrow";
-
-const nextBtn = document.createElement("button");
-nextBtn.textContent = "▶";
-nextBtn.className = "close-btn lightbox-arrow";
-
-lightbox.appendChild(prevBtn);
-lightbox.appendChild(nextBtn);
-
-// KLIK
-prevBtn.addEventListener("click", () => showPrevNext(-1));
-nextBtn.addEventListener("click", () => showPrevNext(1));
-
-function showPrevNext(dir) {
-  currentItemIndex += dir;
-
-  if (currentItemIndex < 0) currentItemIndex = currentGallery.length - 1;
-  if (currentItemIndex >= currentGallery.length) currentItemIndex = 0;
-
-  const newItem = currentGallery[currentItemIndex];
-  imageName.textContent = newItem.name;
-
-  if (newItem.file.endsWith(".mp4") || newItem.file.endsWith(".mov")) {
-    lightboxImage.style.display = "none";
-    lightboxVideo.style.display = "block";
-    lightboxVideo.src = newItem.file;
-    lightboxVideo.play();
-  } else {
-    lightboxVideo.style.display = "none";
-    lightboxImage.style.display = "block";
-    lightboxImage.src = newItem.file;
-  }
-}
-
-// klawiatura
-document.addEventListener("keydown", (e) => {
-  if (lightbox.style.display === "flex") {
-    if (e.key === "ArrowRight") showPrevNext(1);
-    if (e.key === "ArrowLeft") showPrevNext(-1);
-    if (e.key === "Escape") {
-      lightbox.style.display = "none";
-      lightboxVideo.pause();
-    }
-  }
-});
-</script>
 </body>
 </html>
-
-
-
-
-
