@@ -427,6 +427,40 @@
     footer a:hover {
       color: white;
     }
+    /* Neonowy nagłówek "DLA CIEKAWSKICH" */
+.neon-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 22px;
+  color: #00ff00;
+  text-align: center;
+  margin-top: 60px;
+  margin-bottom: 10px;
+  text-shadow:
+    0 0 4px #00ff00,
+    0 0 8px #00ff00,
+}
+
+/* Sekcja MOJE POSTACIE */
+.characters-section {
+  text-align: center;
+  margin-top: 40px; /* było mało – teraz duży odstęp */
+  margin-bottom: 40px; /* dodajemy odstęp w dół */
+}
+
+.characters-box {
+  display: inline-block;
+  border: 3px solid #00ff00;
+  padding: 20px 30px;
+  border-radius: 15px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 16px;
+}
+
+.characters-box:hover {
+  box-shadow: 0 0 20px #00ff00;
+}
   </style>
 </head>
 <body>
@@ -475,6 +509,13 @@
   <h2 style="color:#f; font-size:20px; font-family:'Press Start 2P', monospace; text-align:center; margin-bottom:15px;">
     POZOSTAŁE INNE PROJEKTY/GRAFIKI:
   </h2>
+  <h2 class="neon-title">DLA CIEKAWSKICH</h2>
+
+<div class="characters-section">
+  <div class="characters-box" onclick="window.location.href='MOJE_POSTACIE.html'">
+    MOJE POSTACIE
+  </div>
+</div>
   <div class="carousel-wrapper">
     <button class="carousel-btn left">&lt;</button>
     <div class="carousel">
@@ -1009,52 +1050,48 @@ document.addEventListener("keydown", (e) => {
   text-align: center;
   line-height: 1.4;
 }
-  /* ====================== */
-/* 🔹 WERSJA MOBILNA 🔹 */
-/* ====================== */
-@media (max-width: 768px) {
+  /* ================================
+   ===  RESPONSYWNOŚĆ MOBILNA  ===
+   ================================ */
 
-  body {
-    font-size: 10px;
-    overflow-x: hidden;
-  }
+@media (max-width: 900px) {
 
+  /* ogólne zmniejszenie przestrzeni */
   .container {
     padding: 20px 10px;
   }
 
   .profile {
-    width: 120px;
-    height: 120px;
-    margin-bottom: 20px;
+    width: 150px;
+    height: 150px;
   }
 
   .about h1 {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .about p {
-    font-size: 12px;
-    line-height: 1.5em;
+    font-size: 16px;
   }
 
-  /* Sekcje */
+  /* sekcje */
   .sections {
     flex-direction: column;
     gap: 15px;
   }
 
   .section {
-    width: 80%;
-    font-size: 10px;
-    padding: 12px;
+    width: 100%;
+    max-width: 260px;
+    font-size: 14px;
+    padding: 15px;
   }
 
-  /* Galeria */
+  /* galeria — zmiana układu na 2 kolumny */
   .gallery {
     grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
-    margin: 20px auto;
+    gap: 10px;
+    padding: 0 10px;
   }
 
   .gallery-item {
@@ -1063,101 +1100,101 @@ document.addEventListener("keydown", (e) => {
     aspect-ratio: 1 / 1;
   }
 
-  /* Lightbox */
-  .lightbox-content {
-    max-width: 95%;
-  }
-
-  .close-btn {
-    font-size: 10px;
-    padding: 10px 15px;
-  }
-
-  #imageName {
-    font-size: 10px;
-  }
-
-  /* Karuzela projektów */
-  .carousel-wrapper {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .carousel {
-    overflow-x: scroll;
-    gap: 6px;
-    width: 100%;
-  }
-
+  /* karuzela — mniejsze elementy */
   .carousel-item {
     width: 120px;
     height: 120px;
   }
 
   .carousel-btn {
-    font-size: 12px;
+    font-size: 16px;
     padding: 6px 10px;
-    margin: 8px 0;
   }
 
-  /* Programy */
+  /* sekcja MOJE POSTACIE */
+  .characters-box {
+    font-size: 14px;
+    padding: 15px 20px;
+  }
+
+  /* PROGRAMY – automatyczna siatka */
   .programs-frame {
-    padding: 10px;
-    max-width: 90%;
+    width: 95%;
+    padding: 15px;
   }
 
   .programs-grid {
-    gap: 10px;
+    gap: 15px;
   }
 
   .program {
-    width: 80px;
+    width: 90px;
   }
 
   .program img {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
   }
 
   .program p {
     font-size: 7px;
   }
 
-  /* Trójkąty i piksele — mniej intensywne na mobile */
-  #triangle-top,
-  #triangle-bottom {
-    display: none;
-  }
-
-  .side-pixels {
-    display: none;
-  }
-
-  /* Stopka */
-  footer a {
-    display: block;
-    margin: 8px 0;
+  /* lightbox: przeskalowanie przycisków */
+  .close-btn {
     font-size: 12px;
+    padding: 10px 14px;
+  }
+
+  #lightboxImage,
+  #lightboxVideo {
+    max-height: 65vh;
+  }
+
+  /* strzałki lightboxa */
+  .close-btn {
+    font-size: 12px;
+  }
+  .lightbox button {
+    padding: 8px 12px;
+  }
+
+  /* pionowe trójkąty po bokach — wyłącz na telefonie */
+  #sidePixelsLeft,
+  #sidePixelsRight {
+    display: none;
+  }
+}
+
+/* Jeszcze mniejsze ekrany (stare iPhone SE itd.) */
+@media (max-width: 480px) {
+
+  .profile {
+    width: 130px;
+    height: 130px;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .carousel-item {
+    width: 100px;
+    height: 100px;
+  }
+
+  footer a {
+    font-size: 16px;
   }
 
   .contact-button {
-    font-size: 10px;
-    padding: 10px 16px;
-  }
-
-  /* Okno kontaktu */
-  .contact-content {
-    padding: 20px;
-    font-size: 10px;
-    max-width: 90%;
-  }
-
-  .contact-content h2 {
     font-size: 12px;
+    padding: 12px 18px;
   }
 
-  .contact-content p {
-    font-size: 10px;
+  .contact-content {
+    width: 90%;
+    padding: 20px;
   }
 }
 </style>
@@ -1175,7 +1212,4 @@ document.getElementById("closeContact").addEventListener("click", () => {
 </body>
 
 </html>
-
-
-
 
