@@ -440,6 +440,39 @@
     0 0 8px #00ff00,
 }
 
+/* Sekcja MOJE POSTACIE */
+.characters-section {
+  text-align: center;
+  margin-top: 40px; /* było mało – teraz duży odstęp */
+  margin-bottom: 40px; /* dodajemy odstęp w dół */
+}
+
+.characters-box {
+  display: inline-block;
+  border: 3px solid #00ff00;
+  padding: 20px 30px;
+  border-radius: 15px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 16px;
+}
+
+.characters-box:hover {
+  box-shadow: 0 0 20px #00ff00;
+}
+  </style>
+</head>
+<body>
+
+<div id="triangle-top"></div>
+<div id="triangle-bottom"></div>
+
+  <div id="background"></div>
+
+  <div class="container">
+    <img src="images/me.png" alt="Ja" class="profile">
+
 <!-- NOWA SEKCJA: O MNIE Z RAMKĄ -->
 <div class="about-wrapper">
   <section class="about">
@@ -478,6 +511,11 @@
   </h2>
   <h2 class="neon-title">DLA CIEKAWSKICH</h2>
 
+<div class="characters-section">
+  <div class="characters-box" onclick="window.location.href='MOJE_POSTACIE.html'">
+    MOJE POSTACIE
+  </div>
+</div>
   <div class="carousel-wrapper">
     <button class="carousel-btn left">&lt;</button>
     <div class="carousel">
@@ -1032,17 +1070,4 @@ document.getElementById("closeContact").addEventListener("click", () => {
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
